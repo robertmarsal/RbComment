@@ -40,7 +40,10 @@ the page uri to identify a thread.
 
 The module comes with 2 themes for now. To implement new ones create a new partial view in `view/theme/yourtheme` using
 as base the existing ones.
+
 Use your new theme calling `$this->rbComment('yourtheme')`
+
+The current themes (and possible values of the `$theme` parameter) are :
 
 ##### default
 Basic theme with no external dependencies. Contains the minimum styling to make it look decent.
