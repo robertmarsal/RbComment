@@ -6,4 +6,5 @@ return array(
   'RbComment\Model\Comment'                => __DIR__ . '/src/RbComment/Model/Comment.php',
   'RbComment\Model\CommentTable'           => __DIR__ . '/src/RbComment/Model/CommentTable.php',
   'RbComment\Module'                       => __DIR__ . '/Module.php',
+  'RbComment\View\Helper\Comment'          => __DIR__ . '/src/RbComment/View/Helper/Comment.php',
 );
