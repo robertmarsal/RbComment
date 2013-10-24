@@ -1,0 +1,141 @@
+<style>
+    .rb-meta {
+        font-size: 14px;
+        line-height: 16px;
+        color: #999;
+    }
+
+    .rb-comment-list {
+        padding: 0;
+        list-style: none;
+    }
+
+    .rb-panel-box {
+        padding:15px 0;
+        margin-bottom: 5px;
+    }
+
+    .rb-form-danger {
+        border-style: solid !important;
+        border-width: 1px !important;
+        border-color: #dc8d99!important;
+        background: #fff7f8!important;
+        color: #c91032!important;
+    }
+
+    .rb-form-input {
+        border-style: solid !important;
+        border-width: 1px !important;
+        border-color: #DDD!important;
+        padding: 5px;
+    }
+
+    .rb-form-row {
+        padding: 5px 0;
+    }
+</style>
+
+<p class="rb-meta">
+    <?php echo count($this->comments) ?>&nbsp;comments
+</p>
+
+<?php if (count($this->comments)) : ?>
+
+    <ul class="rb-comment-list">
+        <?php foreach ($this->comments as $comment) : ?>
+            <li class="rb-panel-box">
+                <article class="">
+                    <div class="rb-meta">
+                        <?php echo $comment->author ?> ~ <?php echo $comment->published_on ?>
+                    </div>
+                    <div class="">
+                        <?php echo nl2br($this->escapeHtml($comment->content)) ?>
+                    </div>
+                </article>
+            </li>
+        <?php endforeach ?>
+    </ul>
+
+<?php endif ?>
+
+<?php
+    $this->form->prepare();
+
+    echo $this->form()->openTag($this->form);
+    echo $this->formHidden($this->form->get('id'));
+    echo $this->formHidden($this->form->get('csrf'));
+    echo $this->formHidden($this->form->get('thread')->setValue($this->thread));
+    echo $this->formHidden($this->form->get('uri')->setValue($this->uri));
+?>
+<div class="rb-form-row">
+    <?php
+        $authorErrorClass = isset($this->validationResults->author) ? 'rb-form-danger' : '';
+        $author = $this->form->get('author');
+        $author->setAttributes(array(
+            'class' => 'rb-form-input ' . $authorErrorClass,
+        ));
+
+        echo $this->formRow($author);
+    ?>
+
+    <?php if (isset($this->validationResults->author)) : ?>
+        <p>
+            <?php
+            foreach ((array) $this->validationResults->author as $validationResult) {
+                echo $validationResult . '<br>';
+            }
+            ?>
+        </p>
+    <?php endif ?>
+</div>
+<div class="rb-form-row">
+    <?php
+    $contactErrorClass = isset($this->validationResults->contact) ? 'rb-form-danger' : '';
+    $contact = $this->form->get('contact');
+    $contact->setAttributes(array(
+        'class' => 'rb-form-input ' . $contactErrorClass,
+    ));
+
+    echo $this->formRow($contact);
+    ?>
+
+    <?php if (isset($this->validationResults->contact)) : ?>
+        <p>
+            <?php
+            foreach ((array) $this->validationResults->contact as $validationResult) {
+                echo $validationResult . '<br>';
+            }
+            ?>
+        </p>
+    <?php endif ?>
+</div>
+<div class="rb-form-row">
+    <?php
+        $contentErorClass = isset($this->validationResults->content) ? 'rb-form-danger' : '';
+        $content = $this->form->get('content');
+        $content->setAttributes(array(
+            'cols' => 120,
+            'rows' => 6,
+            'class' => 'rb-form-input ' . $contentErorClass,
+        ));
+
+        echo $this->formRow($content);
+    ?>
+
+    <?php if (isset($this->validationResults->content)) : ?>
+        <p>
+            <?php
+            foreach ((array) $this->validationResults->content as $validationResult) {
+                echo $validationResult . '<br>';
+            }
+            ?>
+        </p>
+    <?php endif ?>
+</div>
+
+<div class="rb-form-row">
+    <?php echo $this->formSubmit($this->form->get('submit')) ?>
+    <label>&nbsp;<?php echo 'All fields are required. Contact info will not be published.' ?></label>
+</div>
+
+<?php echo $this->form()->closeTag() ?>
