@@ -22,6 +22,17 @@ return array(
             'RbComment\Controller\Comment' => 'RbComment\Controller\CommentController',
         ),
     ),
+    'view_helpers' => array(
+        'invokables' => array(
+            'rbComment' => 'RbComment\View\Helper\Comment',
+        )
+    ),
+    'view_manager' => array(
+        'template_map' => array(
+            'rbcomment/theme/uikit'   => __DIR__ . '/../view/theme/uikit.phtml',
+            'rbcomment/theme/default' => __DIR__ . '/../view/theme/default.phtml',
+        ),
+    ),
     'rb_comment' => array(
         'default_visibility' => 1,
     ),

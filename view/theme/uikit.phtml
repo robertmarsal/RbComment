@@ -1,0 +1,117 @@
+<p class="uk-article-meta">
+    <?php echo count($this->comments) ?>&nbsp;comments
+</p>
+
+<?php if (count($this->comments)) : ?>
+
+    <ul class="uk-comment-list">
+        <?php foreach ($this->comments as $comment) : ?>
+            <li class="uk-panel-box">
+                <article class="uk-comment">
+                    <div class="uk-comment-meta">
+                        <?php echo $comment->author ?> ~ <?php echo $comment->published_on ?>
+                    </div>
+                    <div class="uk-comment-body">
+                        <?php echo nl2br($this->escapeHtml($comment->content)) ?>
+                    </div>
+                </article>
+            </li>
+        <?php endforeach ?>
+    </ul>
+
+<?php endif ?>
+
+<?php
+$this->form->setAttribute('class', 'uk-form uk-panel-box');
+
+$this->form->prepare();
+
+echo $this->form()->openTag($this->form);
+echo $this->formHidden($this->form->get('id'));
+echo $this->formHidden($this->form->get('csrf'));
+echo $this->formHidden($this->form->get('thread')->setValue($this->thread));
+echo $this->formHidden($this->form->get('uri')->setValue($this->uri));
+?>
+<div class="uk-form-row">
+    <div class="uk-form-controls">
+        <?php
+        $authorErrorClass = isset($this->validationResults->author) ? 'uk-form-danger' : '';
+        $author = $this->form->get('author');
+        $author->setAttributes(array(
+            'class' => 'uk-form-width-large ' . $authorErrorClass,
+        ));
+
+        echo $this->formRow($author);
+        ?>
+
+        <?php if (isset($this->validationResults->author)) : ?>
+            <p class="uk-form-help-block">
+                <?php
+                foreach ((array) $this->validationResults->author as $validationResult) {
+                    echo $validationResult . '<br>';
+                }
+                ?>
+            </p>
+        <?php endif ?>
+    </div>
+</div>
+<div class="uk-form-row">
+    <div class="uk-form-controls">
+        <?php
+        $contactErrorClass = isset($this->validationResults->contact) ? 'uk-form-danger' : '';
+        $contact = $this->form->get('contact');
+        $contact->setAttributes(array(
+            'class' => 'uk-form-width-large ' . $contactErrorClass,
+        ));
+
+        echo $this->formRow($contact);
+        ?>
+
+        <?php if (isset($this->validationResults->contact)) : ?>
+            <p class="uk-form-help-block">
+                <?php
+                foreach ((array) $this->validationResults->contact as $validationResult) {
+                    echo $validationResult . '<br>';
+                }
+                ?>
+            </p>
+        <?php endif ?>
+    </div>
+</div>
+<div class="uk-form-row">
+    <div class="uk-form-controls">
+        <?php
+        $content = $this->form->get('content');
+        $content->setAttributes(array(
+            'cols' => 120,
+            'rows' => 6,
+            'class' => isset($this->validationResults->content) ? 'uk-form-danger' : '',
+        ));
+
+        echo $this->formRow($content);
+        ?>
+
+        <?php if (isset($this->validationResults->content)) : ?>
+            <p class="uk-form-help-block">
+                <?php
+                foreach ((array) $this->validationResults->content as $validationResult) {
+                    echo $validationResult . '<br>';
+                }
+                ?>
+            </p>
+        <?php endif ?>
+    </div>
+</div>
+<div class="uk-form-row">
+    <div class="uk-form-controls">
+        <?php
+        $submit = $this->form->get('submit');
+        $submit->setAttributes(array(
+            'class' => 'uk-button uk-button-success',
+        ));
+        echo $this->formSubmit($this->form->get('submit'))
+        ?>
+        <label>&nbsp;<?php echo 'All fields are required. Contact info will not be published.' ?></label>
+    </div>
+</div>
+<?php echo $this->form()->closeTag() ?>
