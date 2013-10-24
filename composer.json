@@ -2,7 +2,11 @@
     "name": "robertboloc/rbcomment",
     "type": "module",
     "description": "Comments for Zend Framework 2 applications",
-    "keywords": ["comment","comments", "zf2"],
+    "keywords": [
+        "comment",
+        "comments",
+        "zf2"
+    ],
     "homepage": "http://github.com/robertboloc/RbComment",
     "license": "MIT",
     "authors": [
@@ -20,6 +24,9 @@
     "autoload": {
         "psr-0": {
             "RbComment": "src/"
-        }
+        },
+        "classmap": [
+            "./Module.php"
+        ]
     }
 }
