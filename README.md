@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/robertboloc/RbComment.png)](https://travis-ci.org/robertboloc/shelfari)  
+
 Zend Framework 2 module for drop-in self-hosted comments.
 
 #### Installation
