@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/robertboloc/RbComment.png?branch=master)](https://travis-ci.org/robertboloc/RbComment)  
+[![Build Status](https://travis-ci.org/robertboloc/RbComment.png?branch=master)](https://travis-ci.org/robertboloc/RbComment)
 
 Zend Framework 2 module for drop-in self-hosted comments.
 
@@ -55,8 +55,16 @@ This theme requires the [UIkit](http://www.getuikit.com/) CSS framework. If you 
 will make your comments box look awesome.
 
 #### Configuration
-The configuration of the module can be found in `config/module.config.php`. Currently the configurable parameters are:
+The default configuration of the module can be found in the file `config/module.config.php`.
+To override the defaults, add your values under the `rb_comment` key in the `config/autoload/global.php` file
+of your application, using the same structure as in the defaults.
+
+Currently the configurable parameters are:
 
 ##### default_visibility
 This parameter controls the visibility of the newly published comments. If set to 1 all new published comments will be
 visible. If 0 they will not be shown. This is useful for moderation.
+
+##### strings
+This array contains the translations for the strings used in the comments box. To change or translate to another language
+override these values with your own.
