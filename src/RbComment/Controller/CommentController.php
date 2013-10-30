@@ -15,7 +15,8 @@ class CommentController extends AbstractActionController
 
     public function addAction()
     {
-        $form = new CommentForm();
+        $config = $this->getServiceLocator()->get('Config');
+        $form = new CommentForm($config['rb_comment']['strings']);
 
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -27,10 +28,7 @@ class CommentController extends AbstractActionController
                 $comment->exchangeArray($form->getData());
 
                 // Set default visibility from config
-                $config = $this->getServiceLocator()->get('Config');
-                if(isset($config['rb_comment']['default_visibility'])) {
-                    $comment->visible = $config['rb_comment']['default_visibility'];
-                }
+                $comment->visible = $config['rb_comment']['default_visibility'];
 
                 $this->getCommentTable()->saveComment($comment);
 
