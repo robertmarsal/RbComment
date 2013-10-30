@@ -1,5 +1,6 @@
 <p class="uk-article-meta">
-    <?php echo count($this->comments) ?>&nbsp;comments
+    <?php echo count($this->comments) ?>&nbsp;
+    <?php echo $this->strings['comments'] ?>
 </p>
 
 <?php if (count($this->comments)) : ?>
@@ -111,7 +112,7 @@ echo $this->formHidden($this->form->get('uri')->setValue($this->uri));
         ));
         echo $this->formSubmit($this->form->get('submit'))
         ?>
-        <label>&nbsp;<?php echo 'All fields are required. Contact info will not be published.' ?></label>
+        <label>&nbsp;<?php echo $this->strings['required'] ?></label>
     </div>
 </div>
 <?php echo $this->form()->closeTag() ?>

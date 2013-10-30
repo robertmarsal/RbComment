@@ -35,5 +35,13 @@ return array(
     ),
     'rb_comment' => array(
         'default_visibility' => 1,
+        'strings' => array(
+            'author' => 'Author',
+            'contact' => 'Email',
+            'content' => 'Comment',
+            'submit' => 'Post',
+            'comments' => 'Comments',
+            'required' => 'All fields are required. Contact info will not be published.',
+        ),
     ),
 );

@@ -31,15 +31,19 @@ class Comment  extends AbstractHelper implements ServiceLocatorAwareInterface
         $validationMessages = $viewHelperManager->get('flashMessenger')
                                                 ->getMessagesFromNamespace('RbComment');
 
+        $config = $serviceManager->get('Config');
+        $strings = $config['rb_comment']['strings'];
+
         echo $viewHelperManager->get('partial')->__invoke('rbcomment/theme/' . $theme, array(
             'comments' => $serviceManager->get('RbComment\Model\CommentTable')
                                          ->fetchAllForThread($thread),
-            'form' => new \RbComment\Form\CommentForm(),
+            'form' => new \RbComment\Form\CommentForm($strings),
             'thread' => $thread,
             'validationResults' => count($validationMessages) > 0
                 ? json_decode(array_shift($validationMessages))
                 : array(),
             'uri' => $uri,
+            'strings' => $strings,
         ));
     }
 }

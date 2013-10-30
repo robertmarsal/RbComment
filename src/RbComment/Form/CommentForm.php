@@ -6,7 +6,7 @@ use Zend\Form\Form;
 
 class CommentForm extends Form
 {
-    public function __construct($name = null)
+    public function __construct(array $strings)
     {
         parent::__construct('rbcomment');
 
@@ -45,7 +45,7 @@ class CommentForm extends Form
             'name' => 'author',
             'attributes' => array(
                 'type'  => 'text',
-                'placeholder' => 'Author',
+                'placeholder' => $strings['author'],
             ),
         ));
 
@@ -53,7 +53,7 @@ class CommentForm extends Form
             'name' => 'contact',
             'attributes' => array(
                 'type'  => 'text',
-                'placeholder' => 'Email',
+                'placeholder' => $strings['contact'],
             ),
         ));
 
@@ -61,7 +61,7 @@ class CommentForm extends Form
             'type' => 'Textarea',
             'name' => 'content',
             'attributes' => array(
-                'placeholder' => 'Comment',
+                'placeholder' => $strings['content'],
             ),
         ));
 
@@ -69,7 +69,7 @@ class CommentForm extends Form
             'name' => 'submit',
             'attributes' => array(
                 'type'  => 'submit',
-                'value' => 'Post',
+                'value' => $strings['submit'],
                 'id' => 'submitbutton',
             ),
         ));
