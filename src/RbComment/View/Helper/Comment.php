@@ -10,6 +10,12 @@ class Comment  extends AbstractHelper implements ServiceLocatorAwareInterface
 {
     private $serviceLocator;
 
+    protected $themes = array(
+        'default' => true,
+        'uikit'   => true,
+    );
+
+
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
         $this->serviceLocator = $serviceLocator;
@@ -23,6 +29,11 @@ class Comment  extends AbstractHelper implements ServiceLocatorAwareInterface
 
     public function __invoke($theme = 'default')
     {
+        // If using a custom theme/partial do not append the prefix
+        $invokablePartial = isset($this->themes[$theme])
+            ? 'rbcomment/theme/' . $theme
+            : $theme;
+
         $serviceManager = $this->getServiceLocator()->getServiceLocator();
         $viewHelperManager = $serviceManager->get('viewhelpermanager');
 
@@ -34,7 +45,7 @@ class Comment  extends AbstractHelper implements ServiceLocatorAwareInterface
         $config = $serviceManager->get('Config');
         $strings = $config['rb_comment']['strings'];
 
-        echo $viewHelperManager->get('partial')->__invoke('rbcomment/theme/' . $theme, array(
+        echo $viewHelperManager->get('partial')->__invoke($invokablePartial, array(
             'comments' => $serviceManager->get('RbComment\Model\CommentTable')
                                          ->fetchAllForThread($thread),
             'form' => new \RbComment\Form\CommentForm($strings),
