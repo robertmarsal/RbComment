@@ -19,7 +19,17 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "zendframework/zendframework": "2.*"
+        "zendframework/zend-mvc": "2.*",
+        "zendframework/zend-form": "2.*",
+        "zendframework/zend-db": "2.*",
+        "zendframework/zend-inputfilter": "2.*",
+        "zendframework/zend-view": "2.*",
+        "zendframework/zend-servicemanager": "2.*",
+        "zendframework/zend-loader": "2.*",
+        "zendframework/zend-stdlib": "2.*"
+    },
+    "require-dev": {
+        "robertboloc/zf2-components-list-generator": "dev-master"
     },
     "autoload": {
         "psr-0": {
