@@ -68,3 +68,7 @@ visible. If 0 they will not be shown. This is useful for moderation.
 ##### strings
 This array contains the translations for the strings used in the comments box. To change or translate to another language
 override these values with your own.
+
+#### Preview
+
+![Preview](demo/preview.png)
