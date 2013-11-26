@@ -56,7 +56,7 @@ will make your comments box look awesome.
 
 #### Configuration
 The default configuration of the module can be found in the file `config/module.config.php`.
-To override the defaults, add your values under the `rb_comment` key in the `config/autoload/global.php` file
+To override the defaults, add your values under the `rb_comment` key in the `config/autoload/local.php` file
 of your application, using the same structure as in the defaults.
 
 Currently the configurable parameters are:
