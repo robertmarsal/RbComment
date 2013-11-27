@@ -22,6 +22,11 @@ return array(
             'RbComment\Controller\Comment' => 'RbComment\Controller\CommentController',
         ),
     ),
+    'controller_plugins' => array(
+        'invokables' => array(
+            'rbMailer' => 'RbComment\Mvc\Controller\Plugin\Mailer',
+        )
+    ),
     'view_helpers' => array(
         'invokables' => array(
             'rbComment' => 'RbComment\View\Helper\Comment',
@@ -33,7 +38,21 @@ return array(
             'rbcomment/theme/default' => __DIR__ . '/../view/theme/default.phtml',
         ),
     ),
+    'service_manager' => array(
+        'factories' => array(
+            /**
+             * Placeholder transport config. Do not use this in production.
+             * Replace with smtp.
+             */
+            'RbComment\Mailer' => function () {
+                return new Zend\Mail\Transport\Sendmail();
+            },
+        ),
+    ),
     'rb_comment' => array(
+        /**
+         * Default visibility of the comments.
+         */
         'default_visibility' => 1,
         'strings' => array(
             'author' => 'Author',
@@ -42,6 +61,28 @@ return array(
             'submit' => 'Post',
             'comments' => 'Comments',
             'required' => 'All fields are required. Contact info will not be published.',
+        ),
+        'email' => array(
+            /**
+             * Send email notifications.
+             */
+            'notify' => false,
+            /**
+             * Email addresses where to send the notification.
+             */
+            'to' => array(),
+            /**
+             * From header. Usually something like noreply@myserver.com
+             */
+            'from' => '',
+            /**
+             * Subject of the notification email.
+             */
+            'subject' => 'New Comment',
+            /**
+             * Text of the comment link.
+             */
+            'context_link_text' => 'See this comment in context',
         ),
     ),
 );

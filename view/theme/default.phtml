@@ -44,7 +44,7 @@
 
     <ul class="rb-comment-list">
         <?php foreach ($this->comments as $comment) : ?>
-            <li class="rb-panel-box">
+            <li id="rbcomment-<?php echo $comment->id ?>" class="rb-panel-box">
                 <article class="">
                     <div class="rb-meta">
                         <?php echo $comment->author ?> ~ <?php echo $comment->published_on ?>

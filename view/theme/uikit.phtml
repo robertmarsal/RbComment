@@ -7,7 +7,7 @@
 
     <ul class="uk-comment-list">
         <?php foreach ($this->comments as $comment) : ?>
-            <li class="uk-panel-box">
+            <li id="rbcomment-<?php echo $comment->id ?>" class="uk-panel-box">
                 <article class="uk-comment">
                     <div class="uk-comment-meta">
                         <?php echo $comment->author ?> ~ <?php echo $comment->published_on ?>

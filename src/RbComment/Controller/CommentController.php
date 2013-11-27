@@ -30,7 +30,13 @@ class CommentController extends AbstractActionController
                 // Set default visibility from config
                 $comment->visible = $config['rb_comment']['default_visibility'];
 
-                $this->getCommentTable()->saveComment($comment);
+                // We need the id for the mailer
+                $comment->id = $this->getCommentTable()->saveComment($comment);
+
+                // Send email if active
+                if($config['rb_comment']['email']['notify'] === true) {
+                    $this->rbMailer($comment);
+                }
 
                 return $this->redirect()->toUrl($form->get('uri')->getValue());
             } else {

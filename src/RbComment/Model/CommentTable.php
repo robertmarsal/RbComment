@@ -59,6 +59,7 @@ class CommentTable
         $id = (int)$comment->id;
         if ($id == 0) {
             $this->tableGateway->insert($data);
+            $id = $this->tableGateway->lastInsertValue;
         } else {
             if ($this->getComment($id)) {
                 $this->tableGateway->update($data, array('id' => $id));
@@ -66,6 +67,8 @@ class CommentTable
                 throw new \Exception('Form id does not exist');
             }
         }
+
+        return $id;
     }
 
     public function deleteComment($id)
