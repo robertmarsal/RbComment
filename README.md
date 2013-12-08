@@ -119,3 +119,7 @@ For sending the emails the module uses a service factory called `RbComment\Maile
 #### Preview
 
 ![Preview](demo/preview.png)
+***
+#### Notes
+If you are using the BjyAuthorize module (or any other route restricting module)
+make sure the route `rbcomment` is publicly accessible.
