@@ -3,11 +3,11 @@
 namespace RbCommentTest\Model;
 
 use RbComment\Model\Comment;
+use Zend\InputFilter\InputFilter;
 use PHPUnit_Framework_TestCase;
 
 class CommentTest extends PHPUnit_Framework_TestCase
 {
-
     protected $testComment;
     protected $testArray;
 
@@ -69,4 +69,45 @@ class CommentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->testArray['published_on'], $resultArray['published_on']);
     }
 
+    /**
+     * @expectedException Exception
+     * @expectedExceptionMessage Not used
+     */
+    public function testSetInputFilterThrowsExceptionWhenInvoked()
+    {
+        $this->testComment->setInputFilter(new InputFilter());
+    }
+
+    /**
+     * @dataProvider inputFilterDataProvider
+     */
+    public function testGetInputFilterValidation($data, $validity)
+    {
+        $inputFilter = $this->testComment->getInputFilter();
+        $inputFilter->setData($data);
+
+        $this->assertEquals($inputFilter->isValid(), $validity);
+    }
+
+    public static function inputFilterDataProvider()
+    {
+        return array(
+            // False because no data is sent
+            array(
+                array(),
+                false,
+            ),
+            // True because everything is ok
+            array(
+                array(
+                    'id' => 1,
+                    'thread' => md5('test'),
+                    'author' => 'Robert Boloc',
+                    'contact' => 'robert@test.com',
+                    'content' => 'bla bla bla',
+                ),
+                true,
+            ),
+        );
+    }
 }
