@@ -16,6 +16,7 @@ class Comment implements InputFilterAwareInterface
     public $contact;
     public $content;
     public $visible;
+    public $spam;
     public $published_on;
 
     protected $inputFilter;
@@ -29,6 +30,7 @@ class Comment implements InputFilterAwareInterface
         $this->contact  = (isset($data['contact'])) ? $data['contact'] : null;
         $this->content  = (isset($data['content'])) ? $data['content'] : null;
         $this->visible  = (isset($data['visible'])) ? $data['visible'] : 0;
+        $this->spam     = (isset($data['spam'])) ? $data['spam'] : 0;
         $this->published_on  = (isset($data['published_on']))
             ? $data['published_on']
             : null;

@@ -54,6 +54,7 @@ class CommentTable
             'contact' => $comment->contact,
             'content' => $comment->content,
             'visible' => $comment->visible,
+            'spam' => $comment->spam,
         );
 
         $id = (int)$comment->id;

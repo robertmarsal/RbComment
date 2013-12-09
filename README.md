@@ -115,6 +115,40 @@ For sending the emails the module uses a service factory called `RbComment\Maile
     ),
 ),
 ```
+##### akismet
+The module provides integration with the Akismet service. Comments marked as spam will be hidden (not deleted) and a `[SPAM]` tag will be shown in the notification email subject. To use this feature  the following params must be configured:
+```php
+'akismet' => array(
+    /**
+     * If this is true, the comment will be checked for spam.
+     */
+    'enabled' => false,
+    /**
+     * Your Akismet api key.
+     */
+    'api_key' => '',
+    /**
+     * Akismet uses IP addresses. If you are behind a proxy this SHOULD
+     * be configured to avoid false positives.
+     * Uses the class \Zend\Http\PhpEnvironment\RemoteAddress
+     */
+    'proxy' => array(
+        /**
+         * Use proxy addresses or not.
+         */
+        'use' => false,
+        /**
+         * List of trusted proxy IP addresses.
+         */
+        'trusted' => array(
+        ),
+        /**
+         * HTTP header to introspect for proxies.
+         */
+        'header' => 'X-Forwarded-For',
+    ),
+),
+```
 ***
 #### Preview
 

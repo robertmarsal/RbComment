@@ -47,6 +47,21 @@ return array(
             'RbComment\Mailer' => function () {
                 return new Zend\Mail\Transport\Sendmail();
             },
+            /**
+             * Akismet service instance factory. Uses the config down below.
+             */
+            'RbComment\Akismet' => function ($serviceManager) {
+
+                $config = $serviceManager->get('Config');
+                $viewHelperManager = $serviceManager->get('viewhelpermanager');
+
+                $akismetConfig = $config['rb_comment']['akismet'];
+
+                return new ZendService\Akismet\Akismet(
+                    $akismetConfig['api_key'],
+                    $viewHelperManager->get('serverUrl')->__invoke()
+                );
+            }
         ),
     ),
     'rb_comment' => array(
@@ -83,6 +98,36 @@ return array(
              * Text of the comment link.
              */
             'context_link_text' => 'See this comment in context',
+        ),
+        'akismet' => array(
+            /**
+             * If this is true, the comment will be checked for spam.
+             */
+            'enabled' => false,
+            /**
+             * Your Akismet api key.
+             */
+            'api_key' => '',
+            /**
+             * Akismet uses IP addresses. If you are behind a proxy this SHOULD
+             * be configured to avoid false positives.
+             * Uses the class \Zend\Http\PhpEnvironment\RemoteAddress
+             */
+            'proxy' => array(
+                /**
+                 * Use proxy addresses or not.
+                 */
+                'use' => false,
+                /**
+                 * List of trusted proxy IP addresses.
+                 */
+                'trusted' => array(
+                ),
+                /**
+                 * HTTP header to introspect for proxies.
+                 */
+                'header' => 'X-Forwarded-For',
+            ),
         ),
     ),
 );

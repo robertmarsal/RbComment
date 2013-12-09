@@ -23,6 +23,7 @@ class CommentTest extends PHPUnit_Framework_TestCase
             'contact' => 'contact@robertboloc.eu',
             'content' => 'This is a test comment',
             'visible' => 1,
+            'spam' => 0,
             'published_on' => 12345678,
         );
     }
@@ -36,6 +37,7 @@ class CommentTest extends PHPUnit_Framework_TestCase
         $this->assertNull($this->testComment->contact);
         $this->assertNull($this->testComment->content);
         $this->assertNull($this->testComment->visible);
+        $this->assertNull($this->testComment->spam);
         $this->assertNull($this->testComment->published_on);
     }
 
@@ -50,6 +52,7 @@ class CommentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->testArray['contact'], $this->testComment->contact);
         $this->assertEquals($this->testArray['content'], $this->testComment->content);
         $this->assertEquals($this->testArray['visible'], $this->testComment->visible);
+        $this->assertEquals($this->testArray['spam'], $this->testComment->spam);
         $this->assertEquals($this->testArray['published_on'], $this->testComment->published_on);
     }
 
@@ -66,6 +69,7 @@ class CommentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->testArray['contact'], $resultArray['contact']);
         $this->assertEquals($this->testArray['content'], $resultArray['content']);
         $this->assertEquals($this->testArray['visible'], $resultArray['visible']);
+        $this->assertEquals($this->testArray['spam'], $resultArray['spam']);
         $this->assertEquals($this->testArray['published_on'], $resultArray['published_on']);
     }
 
