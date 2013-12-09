@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/robertboloc/RbComment.png?branch=master)](https://travis-ci.org/robertboloc/RbComment)
 
-Zend Framework 2 module for drop-in self-hosted comments.
+Zend Framework 2 module for drop-in self-hosted comments, with email notifications
+and Akismet integration.
 
 #### Installation
 
