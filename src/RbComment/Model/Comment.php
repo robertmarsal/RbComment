@@ -9,16 +9,55 @@ use Zend\InputFilter\InputFilterInterface;
 
 class Comment implements InputFilterAwareInterface
 {
+    /**
+     * @var int
+     */
     public $id;
+
+    /**
+     * @var string
+     */
     public $thread;
+
+    /**
+     * @var string
+     */
     public $uri;
+
+    /**
+     * @var string
+     */
     public $author;
+
+    /**
+     * @var string
+     */
     public $contact;
+
+    /**
+     *
+     * @var string
+     */
     public $content;
+
+    /**
+     * @var boolean
+     */
     public $visible;
+
+    /**
+     * @var boolean
+     */
     public $spam;
+
+    /**
+     * @var timestamp
+     */
     public $published_on;
 
+    /**
+     * @var Zend\InputFilter\InputFilter
+     */
     protected $inputFilter;
 
     public function exchangeArray($data)

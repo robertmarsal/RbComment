@@ -8,6 +8,9 @@ use Zend\Db\TableGateway\TableGateway;
 
 class CommentTable
 {
+    /**
+     * @var Zend\Db\TableGateway\TableGateway
+     */
     protected $tableGateway;
 
     public function __construct(TableGateway $tableGateway)
@@ -15,12 +18,23 @@ class CommentTable
         $this->tableGateway = $tableGateway;
     }
 
+    /**
+     * Returns all the comments.
+     *
+     * @return ResultSet
+     */
     public function fetchAll()
     {
         $resultSet = $this->tableGateway->select();
         return $resultSet;
     }
 
+    /**
+     * Returns all the comments of a thread.
+     *
+     * @param string $thread
+     * @return ResultSet
+     */
     public function fetchAllForThread($thread)
     {
         $select = new Select($this->tableGateway->getTable());
@@ -34,17 +48,27 @@ class CommentTable
         return $resultSet;
     }
 
+    /**
+     * Returns a comment by id.
+     *
+     * @param int $id
+     * @return \RbComment\Model\Comment
+     */
     public function getComment($id)
     {
         $id  = (int) $id;
         $rowset = $this->tableGateway->select(array('id' => $id));
         $row = $rowset->current();
-        if (!$row) {
-            throw new \Exception("Could not find row $id");
-        }
+
         return $row;
     }
 
+    /**
+     * Saves a comment into the database.
+     *
+     * @param \RbComment\Model\Comment $comment
+     * @return int The id of the inserted/updated comment
+     */
     public function saveComment(Comment $comment)
     {
         $data = array(
@@ -58,20 +82,23 @@ class CommentTable
         );
 
         $id = (int)$comment->id;
-        if ($id == 0) {
+        if ($id === 0) {
             $this->tableGateway->insert($data);
             $id = $this->tableGateway->lastInsertValue;
         } else {
             if ($this->getComment($id)) {
                 $this->tableGateway->update($data, array('id' => $id));
-            } else {
-                throw new \Exception('Form id does not exist');
             }
         }
 
         return $id;
     }
 
+    /**
+     * Removes a comment from the database.
+     *
+     * @param int $id
+     */
     public function deleteComment($id)
     {
         $this->tableGateway->delete(array('id' => $id));
