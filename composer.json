@@ -32,7 +32,7 @@
         "zendframework/zend-mail": "2.*",
         "zendframework/zend-mime": "2.*",
         "zendframework/zend-i18n": "2.*",
-        "zendframework/zendservice-akismet": "dev-master"
+        "zendframework/zendservice-akismet": "2.0.2"
     },
     "require-dev": {
         "robertboloc/zf2-components-list-generator": "dev-master"
