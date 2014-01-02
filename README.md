@@ -117,7 +117,9 @@ For sending the emails the module uses a service factory called `RbComment\Maile
 ),
 ```
 ##### akismet
-The module provides integration with the Akismet service. Comments marked as spam will be hidden (not deleted) and a `[SPAM]` tag will be shown in the notification email subject. To use this feature  the following params must be configured:
+The module provides integration with the Akismet service. Comments marked as
+spam will be hidden (not deleted) and no notification will be sent. To use this
+feature  the following params must be configured:
 ```php
 'akismet' => array(
     /**

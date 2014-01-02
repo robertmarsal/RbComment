@@ -47,11 +47,6 @@ class Mailer extends AbstractPlugin implements ServiceLocatorAwareInterface
         $body = new MimeMessage();
         $body->setParts(array($html));
 
-        // If the comment is spam add a tag to it.
-        if($comment->spam === 1) {
-            $mailerConfig['subject'] = $mailerConfig['subject'] . ' [SPAM]';
-        }
-
         $message = new Message();
         $message->addFrom($mailerConfig['from'])
                 ->setSubject($mailerConfig['subject'])

@@ -48,8 +48,9 @@ class CommentController extends AbstractActionController
                 // We need the id for the mailer
                 $comment->id = $this->getCommentTable()->saveComment($comment);
 
-                // Send email if active
-                if($rbCommentConfig->email['notify'] === true) {
+                // Send email if active and not spam
+                if(($rbCommentConfig->email['notify'] === true) &&
+                    ($comment->spam === 0)) {
                     $this->rbMailer($comment);
                 }
 
