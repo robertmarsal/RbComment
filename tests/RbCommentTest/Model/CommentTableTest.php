@@ -40,6 +40,20 @@ class CommentTableTest extends PHPUnit_Framework_TestCase
         $this->assertSame($resultSet, $commentTable->fetchAll());
     }
 
+    public function testFetchAllForThreadReturnsAllTheCommentsInThread()
+    {
+        $resultSet        = new ResultSet();
+        $tableGatewayMock = $this->getMock('Zend\Db\TableGateway\TableGateway',
+            array('selectWith'), array(), '', false);
+        $tableGatewayMock->expects($this->once())
+                         ->method('selectWith')
+                         ->will($this->returnValue($resultSet));
+
+        $commentTable = new CommentTable($tableGatewayMock);
+
+        $this->assertSame($resultSet, $commentTable->fetchAllForThread('test'));
+    }
+
     public function testCanRetrieveACommentByItsId()
     {
         $comment = new Comment();
