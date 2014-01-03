@@ -22,7 +22,7 @@ class CommentController extends AbstractActionController
     public function addAction()
     {
         $config = $this->getServiceLocator()->get('Config');
-        $rbCommentConfig = (object)$config['rb_comment'];
+        $rbCommentConfig = (object) $config['rb_comment'];
 
         $form = new CommentForm($rbCommentConfig->strings);
 
@@ -58,6 +58,7 @@ class CommentController extends AbstractActionController
             } else {
                 $this->flashMessenger()->setNamespace('RbComment');
                 $this->flashMessenger()->addMessage(json_encode($form->getMessages()));
+
                 return $this->redirect()->toUrl($form->get('uri')->getValue() . '#rbcomment');
             }
         }
@@ -66,8 +67,8 @@ class CommentController extends AbstractActionController
     /**
      * Checks if a comment is spam using the akismet service.
      *
-     * @param \RbComment\Model\Comment $comment
-     * @param mixed $rbCommentConfig
+     * @param  \RbComment\Model\Comment $comment
+     * @param  mixed                    $rbCommentConfig
      * @return boolean
      */
     protected function isSpam($comment, $rbCommentConfig)
@@ -96,6 +97,7 @@ class CommentController extends AbstractActionController
             $sm = $this->getServiceLocator();
             $this->commentTable = $sm->get('RbComment\Model\CommentTable');
         }
+
         return $this->commentTable;
     }
 
@@ -108,6 +110,7 @@ class CommentController extends AbstractActionController
             $sm = $this->getServiceLocator();
             $this->akismetService = $sm->get('RbComment\Akismet');
         }
+
         return $this->akismetService;
     }
 }

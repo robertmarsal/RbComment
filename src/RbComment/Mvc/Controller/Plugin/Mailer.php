@@ -16,6 +16,7 @@ class Mailer extends AbstractPlugin implements ServiceLocatorAwareInterface
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
         $this->serviceLocator = $serviceLocator;
+
         return $this;
     }
 
@@ -52,7 +53,7 @@ class Mailer extends AbstractPlugin implements ServiceLocatorAwareInterface
                 ->setSubject($mailerConfig['subject'])
                 ->setBody($body);
 
-        foreach($mailerConfig['to'] as $mConfig) {
+        foreach ($mailerConfig['to'] as $mConfig) {
             $message->addTo($mConfig);
         }
 

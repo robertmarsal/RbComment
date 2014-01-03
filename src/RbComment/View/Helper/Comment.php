@@ -15,10 +15,10 @@ class Comment  extends AbstractHelper implements ServiceLocatorAwareInterface
         'uikit'   => true,
     );
 
-
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
         $this->serviceLocator = $serviceLocator;
+
         return $this;
     }
 
@@ -58,4 +58,3 @@ class Comment  extends AbstractHelper implements ServiceLocatorAwareInterface
         ));
     }
 }
-

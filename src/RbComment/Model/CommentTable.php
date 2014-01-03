@@ -26,13 +26,14 @@ class CommentTable
     public function fetchAll()
     {
         $resultSet = $this->tableGateway->select();
+
         return $resultSet;
     }
 
     /**
      * Returns all the comments of a thread.
      *
-     * @param string $thread
+     * @param  string    $thread
      * @return ResultSet
      */
     public function fetchAllForThread($thread)
@@ -51,7 +52,7 @@ class CommentTable
     /**
      * Returns a comment by id.
      *
-     * @param int $id
+     * @param  int                      $id
      * @return \RbComment\Model\Comment
      */
     public function getComment($id)
@@ -66,8 +67,8 @@ class CommentTable
     /**
      * Saves a comment into the database.
      *
-     * @param \RbComment\Model\Comment $comment
-     * @return int The id of the inserted/updated comment
+     * @param  \RbComment\Model\Comment $comment
+     * @return int                      The id of the inserted/updated comment
      */
     public function saveComment(Comment $comment)
     {
@@ -81,7 +82,7 @@ class CommentTable
             'spam' => $comment->spam,
         );
 
-        $id = (int)$comment->id;
+        $id = (int) $comment->id;
         if ($id === 0) {
             $this->tableGateway->insert($data);
             $id = $this->tableGateway->lastInsertValue;
