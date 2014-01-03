@@ -6,7 +6,7 @@ use Zend\View\Helper\AbstractHelper;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 
-class Comment  extends AbstractHelper implements ServiceLocatorAwareInterface
+class Comment extends AbstractHelper implements ServiceLocatorAwareInterface
 {
     private $serviceLocator;
 

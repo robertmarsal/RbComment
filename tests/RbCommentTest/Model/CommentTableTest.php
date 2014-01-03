@@ -12,8 +12,9 @@ class CommentTableTest extends PHPUnit_Framework_TestCase
 {
     public function testConstructorSetsDependencies()
     {
-        $tableGatewayMock = $this->getMock('Zend\Db\TableGateway\TableGateway',
-            array(), array(), 'TableGateway', false);
+        $tableGatewayMock = $this->getMock(
+            'Zend\Db\TableGateway\TableGateway', array(), array(),
+            'TableGateway', false);
         $commentTable     = new CommentTable($tableGatewayMock);
 
         $reflectedCommentTable = new ReflectionClass($commentTable);
@@ -29,8 +30,13 @@ class CommentTableTest extends PHPUnit_Framework_TestCase
     public function testFetchAllReturnsAllComments()
     {
         $resultSet        = new ResultSet();
-        $tableGatewayMock = $this->getMock('Zend\Db\TableGateway\TableGateway',
-            array('select'), array(), '', false);
+        $tableGatewayMock = $this->getMock(
+            'Zend\Db\TableGateway\TableGateway',
+            array('select'),
+            array(),
+            '',
+            false
+        );
         $tableGatewayMock->expects($this->once())
                          ->method('select')
                          ->will($this->returnValue($resultSet));
@@ -43,8 +49,14 @@ class CommentTableTest extends PHPUnit_Framework_TestCase
     public function testFetchAllForThreadReturnsAllTheCommentsInThread()
     {
         $resultSet        = new ResultSet();
-        $tableGatewayMock = $this->getMock('Zend\Db\TableGateway\TableGateway',
-            array('selectWith'), array(), '', false);
+        $tableGatewayMock = $this->getMock(
+            'Zend\Db\TableGateway\TableGateway',
+            array('selectWith'),
+            array(),
+            '',
+            false
+        );
+
         $tableGatewayMock->expects($this->once())
                          ->method('selectWith')
                          ->will($this->returnValue($resultSet));
@@ -72,8 +84,14 @@ class CommentTableTest extends PHPUnit_Framework_TestCase
         $resultSet->setArrayObjectPrototype(new Comment());
         $resultSet->initialize(array($comment));
 
-        $tableGatewayMock = $this->getMock('Zend\Db\TableGateway\TableGateway',
-            array('select'), array(), '', false);
+        $tableGatewayMock = $this->getMock(
+            'Zend\Db\TableGateway\TableGateway',
+            array('select'),
+            array(),
+            '',
+            false
+        );
+
         $tableGatewayMock->expects($this->once())
                          ->method('select')
                          ->with(array('id' => 12345))
@@ -99,8 +117,14 @@ class CommentTableTest extends PHPUnit_Framework_TestCase
 
         $comment->exchangeArray($commentData);
 
-        $tableGatewayMock = $this->getMock('Zend\Db\TableGateway\TableGateway',
-            array('insert'), array(), '', false);
+        $tableGatewayMock = $this->getMock(
+            'Zend\Db\TableGateway\TableGateway',
+            array('insert'),
+            array(),
+            '',
+            false
+        );
+
         $tableGatewayMock->expects($this->once())
                          ->method('insert')
                          ->with($commentData);
@@ -129,8 +153,14 @@ class CommentTableTest extends PHPUnit_Framework_TestCase
         $resultSet->setArrayObjectPrototype(new Comment());
         $resultSet->initialize(array($comment));
 
-        $tableGatewayMock = $this->getMock('Zend\Db\TableGateway\TableGateway',
-            array('select', 'update'), array(), '', false);
+        $tableGatewayMock = $this->getMock(
+            'Zend\Db\TableGateway\TableGateway',
+            array('select', 'update'),
+            array(),
+            '',
+            false
+        );
+
         $tableGatewayMock->expects($this->once())
                          ->method('select')
                          ->with(array('id' => 12345))
@@ -153,8 +183,14 @@ class CommentTableTest extends PHPUnit_Framework_TestCase
 
     public function testCanDeleteACommentByItsId()
     {
-        $tableGatewayMock = $this->getMock('Zend\Db\TableGateway\TableGateway',
-            array('delete'), array(), '', false);
+        $tableGatewayMock = $this->getMock(
+            'Zend\Db\TableGateway\TableGateway',
+            array('delete'),
+            array(),
+            '',
+            false
+        );
+
         $tableGatewayMock->expects($this->once())
                          ->method('delete')
                          ->with(array('id' => 12345));

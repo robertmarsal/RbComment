@@ -9,8 +9,12 @@ class CommentTest extends PHPUnit_Framework_TestCase
 {
     public function testSetAndGetServiceLocator()
     {
-        $serviceLocatorMock = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface',
-            array(), array(), 'ServiceLocatorInterface');
+        $serviceLocatorMock = $this->getMock(
+            'Zend\ServiceManager\ServiceLocatorInterface',
+            array(),
+            array(),
+            'ServiceLocatorInterface'
+        );
 
         $commentViewHelper = new RbCommentViewHelper();
         $commentViewHelper->setServiceLocator($serviceLocatorMock);

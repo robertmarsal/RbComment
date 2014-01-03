@@ -39,7 +39,7 @@ class CommentController extends AbstractActionController
                 $comment->visible = $rbCommentConfig->default_visibility;
 
                 // If akismet is enabled check for spam
-                if(($rbCommentConfig->akismet['enabled'] === true) &&
+                if (($rbCommentConfig->akismet['enabled'] === true) &&
                     $this->isSpam($comment, $rbCommentConfig)) {
                     $comment->spam = 1;
                     $comment->visible = 0;
@@ -49,7 +49,7 @@ class CommentController extends AbstractActionController
                 $comment->id = $this->getCommentTable()->saveComment($comment);
 
                 // Send email if active and not spam
-                if(($rbCommentConfig->email['notify'] === true) &&
+                if (($rbCommentConfig->email['notify'] === true) &&
                     ($comment->spam === 0)) {
                     $this->rbMailer($comment);
                 }

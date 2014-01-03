@@ -14,8 +14,12 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->serviceLocatorMock = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface',
-            array('get', 'has'), array(), 'ServiceLocatorInterface');
+        $this->serviceLocatorMock = $this->getMock(
+            'Zend\ServiceManager\ServiceLocatorInterface',
+            array('get', 'has'),
+            array(),
+            'ServiceLocatorInterface'
+        );
 
         // Global values
         $_SERVER['HTTP_USER_AGENT'] = 'RbComment Testing Suite';
@@ -36,8 +40,13 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
             ),
         );
 
-        $akismetServiceMock = $this->getMock('ZendService\Akismet\Akismet',
-            array('isSpam'), array(), '', false);
+        $akismetServiceMock = $this->getMock(
+            'ZendService\Akismet\Akismet',
+            array('isSpam'),
+            array(),
+            '',
+            false
+        );
 
         $akismetServiceMock->expects($this->once())
                            ->method('isSpam')
@@ -87,8 +96,13 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
 
     public function testGetCommentTableReturnsAnInstanceOfCommentTable()
     {
-        $tableGatewayMock = $this->getMock('Zend\Db\TableGateway\TableGateway',
-            array(), array(), '', false);
+        $tableGatewayMock = $this->getMock(
+            'Zend\Db\TableGateway\TableGateway',
+            array(),
+            array(),
+            '',
+            false
+        );
 
         $commentTable = new CommentTable($tableGatewayMock);
 
