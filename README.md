@@ -11,7 +11,7 @@ and Akismet integration.
 ```json
     {
         "require": {
-            "robertboloc/rbcomment": "dev-master"
+            "robertboloc/rbcomment": "1.2.0"
         }
     }
 ```
