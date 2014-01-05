@@ -73,7 +73,7 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
         return array(
             array(
                 // comment
-                (object)array(
+                (object) array(
                     'author' => 'not a spammer',
                     'contact' => 'me@me.com',
                     'content' => 'test',
@@ -83,7 +83,7 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
             ),
             array(
                 // comment
-                (object)array(
+                (object) array(
                     'author' => 'spammer',
                     'contact' => 'spam@spamfactory.com',
                     'content' => 'spam',

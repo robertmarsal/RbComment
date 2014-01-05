@@ -13,9 +13,14 @@ class CommentTableTest extends PHPUnit_Framework_TestCase
     public function testConstructorSetsDependencies()
     {
         $tableGatewayMock = $this->getMock(
-            'Zend\Db\TableGateway\TableGateway', array(), array(),
-            'TableGateway', false);
-        $commentTable     = new CommentTable($tableGatewayMock);
+            'Zend\Db\TableGateway\TableGateway',
+            array(),
+            array(),
+            'TableGateway',
+            false
+        );
+
+        $commentTable = new CommentTable($tableGatewayMock);
 
         $reflectedCommentTable = new ReflectionClass($commentTable);
         $tableGatewayReflectionProperty = $reflectedCommentTable->getProperty('tableGateway');
