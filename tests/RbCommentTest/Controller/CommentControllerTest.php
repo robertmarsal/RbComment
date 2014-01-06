@@ -10,6 +10,19 @@ use ReflectionClass;
 
 class CommentControllerTest extends PHPUnit_Framework_TestCase
 {
+    protected $configMock = array(
+        'rb_comment' => array(
+            'strings' => array(
+                'author'  => 'author',
+                'contact' => 'contact',
+                'content' => 'content',
+                'submit'  => 'submit',
+            ),
+        ),
+    );
+
+    protected $requestMock;
+
     protected $serviceLocatorMock;
 
     public function setUp()
@@ -21,8 +34,127 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
             'ServiceLocatorInterface'
         );
 
+        $this->requestMock = $this->getMock(
+           'Zend\Http\Request',
+            array('isPost', 'getPost'),
+            array(),
+            '',
+            false
+        );
+
         // Global values
         $_SERVER['HTTP_USER_AGENT'] = 'RbComment Testing Suite';
+    }
+
+    public function testAddActionOnlyWorksWithPostMethod()
+    {
+        // ServiceLocator Mock Setup
+        $this->serviceLocatorMock->expects($this->once())
+                                 ->method('get')
+                                 ->with('Config')
+                                 ->will($this->returnValue($this->configMock));
+
+        // Request Mock Setup
+        $this->requestMock->expects($this->once())
+                    ->method('isPost')
+                    ->will($this->returnValue(false));
+
+        // CommentController Mock
+        $commentControllerMock = $this->getMock(
+            'RbComment\Controller\CommentController',
+            array('getRequest', 'getServiceLocator'),
+            array(),
+            '',
+            false
+        );
+
+        $commentControllerMock->expects($this->once())
+                              ->method('getServiceLocator')
+                              ->will($this->returnValue($this->serviceLocatorMock));
+
+        $commentControllerMock->expects($this->once())
+                              ->method('getRequest')
+                              ->will($this->returnValue($this->requestMock));
+
+        $commentControllerMock->addAction();
+    }
+
+    public function testAddActionLogsFormErrorsIntoTheRbCommentNamespace()
+    {
+        //'contact' key is missing on purpose
+        $postMock = array(
+            'author' => 'Tester',
+            'content' => 'test',
+            'uri' => '/test',
+        );
+
+        // ServiceLocator Mock Setup
+        $this->serviceLocatorMock->expects($this->once())
+                                 ->method('get')
+                                 ->with('Config')
+                                 ->will($this->returnValue($this->configMock));
+
+        // Request Mock Setup
+        $this->requestMock->expects($this->once())
+                    ->method('isPost')
+                    ->will($this->returnValue(true));
+
+        $this->requestMock->expects($this->once())
+                    ->method('getPost')
+                    ->will($this->returnValue($postMock));
+
+        // FlashMessenger Mock
+        $flashMessengerMock = $this->getMock(
+            'Zend\Mvc\Controller\Plugin\FlashMessenger',
+            array('setNamespace', 'addMessage'),
+            array(),
+            '',
+            false
+        );
+
+        $flashMessengerMock->expects($this->once())
+                           ->method('setNamespace')
+                           ->with('RbComment');
+
+        // Redirect Mock
+        $redirectMock = $this->getMock(
+            'Zend\Mvc\Controller\Plugin\Redirect',
+            array('toUrl'),
+            array(),
+            '',
+            false
+        );
+
+        $redirectMock->expects($this->once())
+                     ->method('toUrl')
+                     ->with($postMock['uri'] . '#rbcomment');
+
+        // CommentController Mock
+        $commentControllerMock = $this->getMock(
+            'RbComment\Controller\CommentController',
+            array('getRequest', 'getServiceLocator', 'flashMessenger', 'redirect'),
+            array(),
+            '',
+            false
+        );
+
+        $commentControllerMock->expects($this->once())
+                              ->method('getServiceLocator')
+                              ->will($this->returnValue($this->serviceLocatorMock));
+
+        $commentControllerMock->expects($this->once())
+                              ->method('getRequest')
+                              ->will($this->returnValue($this->requestMock));
+
+        $commentControllerMock->expects($this->exactly(2))
+                              ->method('flashMessenger')
+                              ->will($this->returnValue($flashMessengerMock));
+
+        $commentControllerMock->expects($this->once())
+                              ->method('redirect')
+                              ->will($this->returnValue($redirectMock));
+
+        $commentControllerMock->addAction();
     }
 
     /**
