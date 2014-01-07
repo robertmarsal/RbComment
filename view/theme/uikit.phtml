@@ -33,86 +33,117 @@ echo $this->formHidden($this->form->get('csrf'));
 echo $this->formHidden($this->form->get('thread')->setValue($this->thread));
 echo $this->formHidden($this->form->get('uri')->setValue($this->uri));
 ?>
-<div class="uk-form-row">
-    <div class="uk-form-controls">
-        <?php
-        $authorErrorClass = isset($this->validationResults->author) ? 'uk-form-danger' : '';
-        $author = $this->form->get('author');
-        $author->setAttributes(array(
-            'class' => 'uk-form-width-large ' . $authorErrorClass,
-        ));
 
-        echo $this->formRow($author);
-        ?>
+<?php if(!$this->zfc_user) : ?>
 
-        <?php if (isset($this->validationResults->author)) : ?>
-            <p class="uk-form-help-block">
-                <?php
-                foreach ((array) $this->validationResults->author as $validationResult) {
-                    echo $validationResult . '<br>';
-                }
-                ?>
-            </p>
+    <div class="uk-form-row">
+        <div class="uk-form-controls">
+            <?php
+            $authorErrorClass = isset($this->validationResults->author) ? 'uk-form-danger' : '';
+            $author = $this->form->get('author');
+            $author->setAttributes(array(
+                'class' => 'uk-form-width-large ' . $authorErrorClass,
+            ));
+
+            echo $this->formRow($author);
+            ?>
+
+            <?php if (isset($this->validationResults->author)) : ?>
+                <p class="uk-form-help-block">
+                    <?php
+                    foreach ((array) $this->validationResults->author as $validationResult) {
+                        echo $validationResult . '<br>';
+                    }
+                    ?>
+                </p>
+            <?php endif ?>
+        </div>
+    </div>
+    <div class="uk-form-row">
+        <div class="uk-form-controls">
+            <?php
+            $contactErrorClass = isset($this->validationResults->contact) ? 'uk-form-danger' : '';
+            $contact = $this->form->get('contact');
+            $contact->setAttributes(array(
+                'class' => 'uk-form-width-large ' . $contactErrorClass,
+            ));
+
+            echo $this->formRow($contact);
+            ?>
+
+            <?php if (isset($this->validationResults->contact)) : ?>
+                <p class="uk-form-help-block">
+                    <?php
+                    foreach ((array) $this->validationResults->contact as $validationResult) {
+                        echo $validationResult . '<br>';
+                    }
+                    ?>
+                </p>
+            <?php endif ?>
+        </div>
+    </div>
+
+<?php else : ?>
+
+    <div class="uk-form-row">
+        <?php if($this->zfcUserIdentity()) : ?>
+            <?php echo $this->strings['signedinas'] ?>
+            <strong><?php echo $this->zfcUserIdentity()->getDisplayname() ?></strong>
+            <a class="uk-float-right" href="<?php echo $this->url('zfcuser/logout') ?>">
+                <?php echo $this->strings['signout'] ?>
+            </a>
+
+            <input type="hidden" name="author" value="<?php echo $this->zfcUserIdentity()->getDisplayname() ?>">
+            <input type="hidden" name="contact" value="<?php echo $this->zfcUserIdentity()->getEmail() ?>">
+
+        <?php else : ?>
+            <?php echo $this->strings['notsignedin'] ?>
+            <a href="<?php echo $this->url('zfcuser/login') ?>">
+                <?php echo $this->strings['signin'] ?>
+            </a>
         <?php endif ?>
     </div>
-</div>
-<div class="uk-form-row">
-    <div class="uk-form-controls">
-        <?php
-        $contactErrorClass = isset($this->validationResults->contact) ? 'uk-form-danger' : '';
-        $contact = $this->form->get('contact');
-        $contact->setAttributes(array(
-            'class' => 'uk-form-width-large ' . $contactErrorClass,
-        ));
 
-        echo $this->formRow($contact);
-        ?>
+<?php endif ?>
 
-        <?php if (isset($this->validationResults->contact)) : ?>
-            <p class="uk-form-help-block">
-                <?php
-                foreach ((array) $this->validationResults->contact as $validationResult) {
-                    echo $validationResult . '<br>';
-                }
-                ?>
-            </p>
-        <?php endif ?>
+<?php if(($this->zfc_user && $this->zfcUserIdentity()) || !$this->zfc_user) : ?>
+
+    <div class="uk-form-row">
+        <div class="uk-form-controls">
+            <?php
+            $content = $this->form->get('content');
+            $content->setAttributes(array(
+                'cols' => 120,
+                'rows' => 6,
+                'class' => isset($this->validationResults->content) ? 'uk-form-danger' : '',
+            ));
+
+            echo $this->formRow($content);
+            ?>
+
+            <?php if (isset($this->validationResults->content)) : ?>
+                <p class="uk-form-help-block">
+                    <?php
+                    foreach ((array) $this->validationResults->content as $validationResult) {
+                        echo $validationResult . '<br>';
+                    }
+                    ?>
+                </p>
+            <?php endif ?>
+        </div>
     </div>
-</div>
-<div class="uk-form-row">
-    <div class="uk-form-controls">
-        <?php
-        $content = $this->form->get('content');
-        $content->setAttributes(array(
-            'cols' => 120,
-            'rows' => 6,
-            'class' => isset($this->validationResults->content) ? 'uk-form-danger' : '',
-        ));
-
-        echo $this->formRow($content);
-        ?>
-
-        <?php if (isset($this->validationResults->content)) : ?>
-            <p class="uk-form-help-block">
-                <?php
-                foreach ((array) $this->validationResults->content as $validationResult) {
-                    echo $validationResult . '<br>';
-                }
-                ?>
-            </p>
-        <?php endif ?>
+    <div class="uk-form-row">
+        <div class="uk-form-controls">
+            <?php
+            $submit = $this->form->get('submit');
+            $submit->setAttributes(array(
+                'class' => 'uk-button uk-button-success',
+            ));
+            echo $this->formSubmit($this->form->get('submit'))
+            ?>
+            <label>&nbsp;<?php echo $this->strings['required'] ?></label>
+        </div>
     </div>
-</div>
-<div class="uk-form-row">
-    <div class="uk-form-controls">
-        <?php
-        $submit = $this->form->get('submit');
-        $submit->setAttributes(array(
-            'class' => 'uk-button uk-button-success',
-        ));
-        echo $this->formSubmit($this->form->get('submit'))
-        ?>
-        <label>&nbsp;<?php echo $this->strings['required'] ?></label>
-    </div>
-</div>
-<?php echo $this->form()->closeTag() ?>
+<?php endif ?>
+
+<?php echo $this->form()->closeTag();

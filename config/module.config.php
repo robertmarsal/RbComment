@@ -76,6 +76,10 @@ return array(
             'submit' => 'Post',
             'comments' => 'Comments',
             'required' => 'All fields are required. Contact info will not be published.',
+            'signout' => 'Sign Out',
+            'signin' => 'Sign In',
+            'signedinas' => 'You are signed in as',
+            'notsignedin' => 'You are not signed in. To be able to comment, please ',
         ),
         'email' => array(
             /**
@@ -128,6 +132,12 @@ return array(
                  */
                 'header' => 'X-Forwarded-For',
             ),
+        ),
+        'zfc_user' => array(
+            /**
+             * This enables the ZfcUser integration.
+             */
+            'enabled' => false,
         ),
     ),
 );
