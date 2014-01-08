@@ -40,9 +40,10 @@ class CommentTable
     {
         $select = new Select($this->tableGateway->getTable());
         $select->columns(array('id', 'author', 'content',
+                               'published_on_raw' => 'published_on',
                                'published_on' => new Expression("DATE_FORMAT(published_on, '%M %d, %Y %H:%i')")))
                ->where(array('thread' => $thread, 'visible' => 1))
-               ->order('published_on DESC');
+               ->order('published_on_raw DESC');
 
         $resultSet = $this->tableGateway->selectWith($select);
 
