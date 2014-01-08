@@ -33,6 +33,10 @@
     .rb-form-row {
         padding: 5px 0;
     }
+
+    .rb-float-right {
+        float: right;
+    }
 </style>
 
 <p class="rb-meta">
@@ -116,11 +120,11 @@
 
 <?php else : ?>
 
-    <div class="uk-form-row">
+    <div class="rb-form-row">
         <?php if($this->zfcUserIdentity()) : ?>
             <?php echo $this->strings['signedinas'] ?>
             <strong><?php echo $this->zfcUserIdentity()->getDisplayname() ?></strong>
-            <a class="uk-float-right" href="<?php echo $this->url('zfcuser/logout') ?>">
+            <a class="rb-float-right" href="<?php echo $this->url('zfcuser/logout') ?>">
                 <?php echo $this->strings['signout'] ?>
             </a>
 
@@ -144,7 +148,7 @@
             $contentErorClass = isset($this->validationResults->content) ? 'rb-form-danger' : '';
             $content = $this->form->get('content');
             $content->setAttributes(array(
-                'cols' => 120,
+                'cols' => 116,
                 'rows' => 6,
                 'class' => 'rb-form-input ' . $contentErorClass,
             ));
