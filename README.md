@@ -1,11 +1,21 @@
+# RbComment
 [![Build Status](https://travis-ci.org/robertboloc/RbComment.png?branch=master)](https://travis-ci.org/robertboloc/RbComment)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/robertboloc/RbComment/badges/quality-score.png?s=2a9282e48eacd63e6cb9366ae5491f9409fcdaec)](https://scrutinizer-ci.com/g/robertboloc/RbComment/)
 [![Code Coverage](https://scrutinizer-ci.com/g/robertboloc/RbComment/badges/coverage.png?s=7d6925b4d8cb2add259cbba7e05838323bcece3c)](https://scrutinizer-ci.com/g/robertboloc/RbComment/)
 
-Zend Framework 2 module for drop-in self-hosted comments, with email notifications
-and Akismet integration.
+Zend Framework 2 module for drop-in, self-hosted comments, with email notifications,
+Akismet integration and ZfcUser support.
 
-#### Installation
+## Table of contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [Themes](#themes)
+- [Configuration](#configuration)
+- [Roadmap](#roadmap)
+- [Preview](#preview)
+- [Notes](#notes)
+
+## Installation
 
 1. Add the module key to your `composer.json` file
 ```json
@@ -24,13 +34,11 @@ and Akismet integration.
 ```php
     'modules' => array(
         'Application',
-        'RbComment',
+        'RbComment', // Add this
     ),
 ```
 
-***
-
-#### Usage
+## Usage
 
 In your views use the `rbComment` helper to display the count, the list and a form for adding new comments. Invoke it
 where you want your comments box to appear. Simple isn't it? This helper can be used in any view.
@@ -43,9 +51,8 @@ The `$theme` parameter is used to specify the theme of the comments box (if none
 Currently, the module is designed to allow only one comment box per page, as it uses
 the page uri to identify a thread.
 
-***
 
-#### Themes
+## Themes
 
 The module comes with 2 themes for now. To implement new ones create a new partial using
 as base the existing ones.
@@ -54,31 +61,31 @@ Use your new theme calling `$this->rbComment('yourpartial')`
 
 The current themes (and possible values of the `$theme` parameter if not using a custom partial) are :
 
-##### default
+#### default
 Basic theme with no external dependencies. Contains the minimum styling to make it look decent.
 
-##### uikit
+#### uikit
 This theme requires the [UIkit](http://www.getuikit.com/) CSS framework. If you use it in your project this theme
 will make your comments box look awesome.
 
-***
 
-#### Configuration
+## Configuration
+
 The default configuration of the module can be found in the file `config/module.config.php`.
 To override the defaults, add your values under the `rb_comment` key in the `config/autoload/local.php` file
 of your application, using the same structure as in the defaults.
 
 Currently the configurable parameters are:
 
-##### default_visibility
+#### default_visibility
 This parameter controls the visibility of the newly published comments. If set to 1 all new published comments will be
 visible. If 0 they will not be shown. This is useful for moderation.
 
-##### strings
+#### strings
 This array contains the translations for the strings used in the comments box. To change or translate to another language
 override these values with your own.
 
-##### email
+#### email
 This array contains email notifications parameters
 ```php
 'email' => array(
@@ -118,10 +125,12 @@ For sending the emails the module uses a service factory called `RbComment\Maile
     ),
 ),
 ```
-##### akismet
+#### akismet
+
 The module provides integration with the Akismet service. Comments marked as
 spam will be hidden (not deleted) and no notification will be sent. To use this
 feature  the following params must be configured:
+
 ```php
 'akismet' => array(
     /**
@@ -154,11 +163,38 @@ feature  the following params must be configured:
     ),
 ),
 ```
-***
-#### Preview
+#### zfc_user
+
+By default the ZfcUser integration is disabled. To use it you must update this flag in your config file.
+
+```
+'zfc_user' => array(
+    /**
+     * This enables the ZfcUser integration.
+     */
+    'enabled' => false,
+),
+```
+
+
+## Roadmap
+
+If you want to contribute to the development of this module and don't know where to start you can
+pick one of this tasks :
+
+* Allow multiple instances of the comments box on the same page
+* Use AJAX for storing/retrieving comments
+* Emoji integration
+* Gravatar integration
+* Make module CLI aware
+  * Automate removal of spam with a cron task
+* Block spammers by IP
+
+## Preview
 
 ![Preview](demo/preview.png)
-***
-#### Notes
+
+## Notes
+
 If you are using the BjyAuthorize module (or any other route restricting module)
 make sure the route `rbcomment` is publicly accessible.
