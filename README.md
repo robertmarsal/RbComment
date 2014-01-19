@@ -167,7 +167,7 @@ feature  the following params must be configured:
 
 By default the ZfcUser integration is disabled. To use it you must update this flag in your config file.
 
-```
+```php
 'zfc_user' => array(
     /**
      * This enables the ZfcUser integration.
@@ -176,6 +176,18 @@ By default the ZfcUser integration is disabled. To use it you must update this f
 ),
 ```
 
+#### gravatar
+
+By default the Gravatar integration is disabled. To use it you must update this flag in your config file.
+
+```php
+'gravatar' => array(
+    /**
+     * This enables the Gravatar integration.
+     */
+    'enabled' => false,
+),
+```
 
 ## Roadmap
 
@@ -185,10 +197,10 @@ pick one of this tasks :
 * Allow multiple instances of the comments box on the same page
 * Use AJAX for storing/retrieving comments
 * Emoji integration
-* Gravatar integration
 * Make module CLI aware
   * Automate removal of spam with a cron task
 * Block spammers by IP
+* More themes
 
 ## Preview
 
