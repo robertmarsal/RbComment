@@ -37,6 +37,11 @@
     .rb-float-right {
         float: right;
     }
+
+    .rb-comment-avatar {
+        margin-right: 15px;
+        float: left;
+    }
 </style>
 
 <p class="rb-meta">
@@ -50,6 +55,17 @@
         <?php foreach ($this->comments as $comment) : ?>
             <li id="rbcomment-<?php echo $comment->id ?>" class="rb-panel-box">
                 <article class="">
+
+                    <?php
+                        if($this->gravatar)  {
+                            echo $this->gravatar(
+                                $comment->contact,
+                                array('img_size' => '48'),
+                                array('class' => 'rb-comment-avatar')
+                            );
+                        }
+                    ?>
+
                     <div class="rb-meta">
                         <?php echo $comment->author ?> ~ <?php echo $comment->published_on ?>
                     </div>

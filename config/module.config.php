@@ -139,5 +139,11 @@ return array(
              */
             'enabled' => false,
         ),
+        'gravatar' => array(
+            /**
+             * This enables the Gravatar integration.
+             */
+            'enabled' => false,
+        ),
     ),
 );

@@ -56,6 +56,7 @@ class Comment extends AbstractHelper implements ServiceLocatorAwareInterface
             'uri' => $uri,
             'strings' => $strings,
             'zfc_user'=> $config['rb_comment']['zfc_user']['enabled'],
+            'gravatar'=> $config['rb_comment']['gravatar']['enabled'],
         ));
     }
 }

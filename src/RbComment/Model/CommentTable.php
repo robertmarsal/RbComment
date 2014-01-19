@@ -39,7 +39,7 @@ class CommentTable
     public function fetchAllForThread($thread)
     {
         $select = new Select($this->tableGateway->getTable());
-        $select->columns(array('id', 'author', 'content',
+        $select->columns(array('id', 'author', 'content', 'contact',
                                'published_on_raw' => 'published_on',
                                'published_on' => new Expression("DATE_FORMAT(published_on, '%M %d, %Y %H:%i')")))
                ->where(array('thread' => $thread, 'visible' => 1))

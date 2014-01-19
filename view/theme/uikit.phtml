@@ -8,7 +8,18 @@
     <ul class="uk-comment-list">
         <?php foreach ($this->comments as $comment) : ?>
             <li id="rbcomment-<?php echo $comment->id ?>" class="uk-panel-box">
-                <article class="uk-comment">
+                <article class="uk-comment uk-panel">
+
+                    <?php
+                        if($this->gravatar)  {
+                            echo $this->gravatar(
+                                $comment->contact,
+                                array('img_size' => '48'),
+                                array('class' => 'uk-comment-avatar')
+                            );
+                        }
+                    ?>
+
                     <div class="uk-comment-meta">
                         <?php echo $comment->author ?> ~ <?php echo $comment->published_on ?>
                     </div>
