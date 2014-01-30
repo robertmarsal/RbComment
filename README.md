@@ -111,20 +111,11 @@ This array contains email notifications parameters
     'context_link_text' => 'See this comment in context',
 ),
 ```
-For sending the emails the module uses a service factory called `RbComment\Mailer`. As a default it configures a sendmail transport. This should be changed in production and customized to your needs (probably with smtp). To do this rewrite the service factory in your `config/autoload/global.php` file.
-```php
-'service_manager' => array(
-    'factories' => array(
-        /**
-         * Placeholder transport config. Do not use this in production.
-         * Replace with smtp.
-         */
-        'RbComment\Mailer' => function () {
-            return new Zend\Mail\Transport\Sendmail();
-        },
-    ),
-),
-```
+For sending the emails the module uses a service factory called `RbComment\Mailer`.
+As a default it configures a sendmail transport. This should be changed in
+production and customized to your needs (probably with smtp).
+To do this rewrite the service factory `RbComment\Mailer`.
+
 #### akismet
 
 The module provides integration with the Akismet service. Comments marked as

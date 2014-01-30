@@ -38,32 +38,6 @@ return array(
             'rbcomment/theme/default' => __DIR__ . '/../view/theme/default.phtml',
         ),
     ),
-    'service_manager' => array(
-        'factories' => array(
-            /**
-             * Placeholder transport config. Do not use this in production.
-             * Replace with smtp.
-             */
-            'RbComment\Mailer' => function () {
-                return new Zend\Mail\Transport\Sendmail();
-            },
-            /**
-             * Akismet service instance factory. Uses the config down below.
-             */
-            'RbComment\Akismet' => function ($serviceManager) {
-
-                $config = $serviceManager->get('Config');
-                $viewHelperManager = $serviceManager->get('viewhelpermanager');
-
-                $akismetConfig = $config['rb_comment']['akismet'];
-
-                return new ZendService\Akismet\Akismet(
-                    $akismetConfig['api_key'],
-                    $viewHelperManager->get('serverUrl')->__invoke()
-                );
-            }
-        ),
-    ),
     'rb_comment' => array(
         /**
          * Default visibility of the comments.
