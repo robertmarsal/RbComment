@@ -2,6 +2,9 @@
 [![Build Status](https://travis-ci.org/robertboloc/RbComment.png?branch=master)](https://travis-ci.org/robertboloc/RbComment)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/robertboloc/RbComment/badges/quality-score.png?s=2a9282e48eacd63e6cb9366ae5491f9409fcdaec)](https://scrutinizer-ci.com/g/robertboloc/RbComment/)
 [![Code Coverage](https://scrutinizer-ci.com/g/robertboloc/RbComment/badges/coverage.png?s=7d6925b4d8cb2add259cbba7e05838323bcece3c)](https://scrutinizer-ci.com/g/robertboloc/RbComment/)
+[![Total Downloads](https://poser.pugx.org/robertboloc/rbcomment/downloads.png)](https://packagist.org/packages/robertboloc/rbcomment)
+[![Latest Stable Version](https://poser.pugx.org/robertboloc/rbcomment/v/stable.png)](https://packagist.org/packages/robertboloc/rbcomment)
+[![License](https://poser.pugx.org/robertboloc/rbcomment/license.png)](https://packagist.org/packages/robertboloc/rbcomment)
 
 Zend Framework 2 module for drop-in, self-hosted comments, with
 email notifications, Akismet, ZfcUser and Gravatar integration.
