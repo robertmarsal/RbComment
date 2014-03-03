@@ -8,8 +8,10 @@ use ZendService\Akismet\Akismet;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Mail\Transport\Sendmail;
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Console\Adapter\AdapterInterface as Console;
+use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 
-class Module
+class Module implements ConsoleUsageProviderInterface
 {
     public function getConfig()
     {
@@ -68,6 +70,13 @@ class Module
                     );
                }
             ),
+        );
+    }
+
+    public function getConsoleUsage(Console $console)
+    {
+        return array(
+            'delete spam' => 'Delete all comments marked as spam from the database',
         );
     }
 }

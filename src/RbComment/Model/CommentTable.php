@@ -105,4 +105,15 @@ class CommentTable
     {
         $this->tableGateway->delete(array('id' => $id));
     }
+
+
+    /**
+     * Deletes all comments maked as spam from the database.
+     *
+     * @return int - number of rows affected.
+     */
+    public function deleteSpam()
+    {
+        return $this->tableGateway->delete(array('spam' => 1));
+    }
 }

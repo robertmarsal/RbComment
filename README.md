@@ -14,6 +14,7 @@ email notifications, Akismet, ZfcUser and Gravatar integration.
 - [Usage](#usage)
 - [Themes](#themes)
 - [Configuration](#configuration)
+- [CLI](#cli)
 - [Roadmap](#roadmap)
 - [Preview](#preview)
 - [Notes](#notes)
@@ -183,6 +184,14 @@ By default the Gravatar integration is disabled. To use it you must update this 
 ),
 ```
 
+## CLI
+
+The following cli commands are available:
+
+`delete spam` Delete all comments marked as spam from the database
+
+This can be added to your cron to periodically remove spam from the database and keep your tables clean and light.
+
 ## Roadmap
 
 If you want to contribute to the development of this module and don't know where to start you can
@@ -191,8 +200,6 @@ pick one of this tasks :
 * Allow multiple instances of the comments box on the same page
 * Use AJAX for storing/retrieving comments
 * Emoji integration
-* Make module CLI aware
-  * Automate removal of spam with a cron task
 * Block spammers by IP
 * More themes
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace RbCommentTest\Model;
+namespace RbCommentTest\Controller;
 
 use RbComment\Model\CommentTable;
 use RbComment\Controller\CommentController;

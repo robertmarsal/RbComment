@@ -17,9 +17,25 @@ return array(
             ),
         )
     ),
+    'console' => array(
+        'router' => array(
+            'routes' => array(
+                'delete-spam' => array(
+                    'options' => array(
+                        'route' => 'delete spam',
+                        'defaults' => array(
+                            'controller' => 'RbComment\Controller\Console',
+                            'action' => 'delete-spam',
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
     'controllers' => array(
         'invokables' => array(
             'RbComment\Controller\Comment' => 'RbComment\Controller\CommentController',
+            'RbComment\Controller\Console' => 'RbComment\Controller\ConsoleController',
         ),
     ),
     'controller_plugins' => array(

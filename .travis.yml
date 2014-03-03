@@ -7,4 +7,6 @@ php:
 before_script:
   - composer self-update
   - composer update
-  - cd tests/
+
+script:
+  - php ./vendor/bin/phpunit -c ./tests/
