@@ -33,7 +33,8 @@
         "zendframework/zend-mime": "2.*",
         "zendframework/zend-i18n": "2.*",
         "zendframework/zendservice-akismet": "2.0.2",
-        "zendframework/zend-http": "2.*"
+        "zendframework/zend-http": "2.*",
+        "zendframework/zend-console": "2.*"
     },
     "require-dev": {
         "robertboloc/zf2-components-list-generator": "dev-master",
