@@ -80,7 +80,7 @@ class CommentController extends AbstractActionController
 
         return $this->getAkismetService()->isSpam(array(
             'user_ip' => $remote->getIpAddress(),
-            'user_agent' => $_SERVER['HTTP_USER_AGENT'],
+            'user_agent' => filter_input(INPUT_SERVER, 'HTTP_USER_AGENT'),
             'comment_type' => 'comment',
             'comment_author' => $comment->author,
             'comment_author_email' => $comment->contact,
