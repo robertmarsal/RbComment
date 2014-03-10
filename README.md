@@ -209,5 +209,7 @@ pick one of this tasks :
 
 ## Notes
 
-If you are using the BjyAuthorize module (or any other route restricting module)
+* If you are using the BjyAuthorize module (or any other route restricting module)
 make sure the route `rbcomment` is publicly accessible.
+
+* This module assumes you have a database adapter configured.
