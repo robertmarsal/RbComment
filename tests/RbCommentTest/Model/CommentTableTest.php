@@ -203,4 +203,22 @@ class CommentTableTest extends PHPUnit_Framework_TestCase
         $commentTable = new CommentTable($tableGatewayMock);
         $commentTable->deleteComment(12345);
     }
+
+    public function testCanDeleteSpam()
+    {
+        $tableGatewayMock = $this->getMock(
+            'Zend\Db\TableGateway\TableGateway',
+            array('delete'),
+            array(),
+            '',
+            false
+        );
+
+        $tableGatewayMock->expects($this->once())
+                         ->method('delete')
+                         ->with(array('spam' => 1));
+
+        $commentTable = new CommentTable($tableGatewayMock);
+        $commentTable->deleteSpam();
+    }
 }

@@ -35,7 +35,7 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
         );
 
         $this->requestMock = $this->getMock(
-           'Zend\Http\Request',
+            'Zend\Http\Request',
             array('isPost', 'getPost'),
             array(),
             '',
