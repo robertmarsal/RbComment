@@ -75,7 +75,7 @@ theme if your project is based on the UIkit framework.
 
 #### bootstrap3
 This theme requires the [Bootstrap v3.x.x](http://getbootstrap.com/) CSS framework.
-Use this theme if your project is based on the bootstrap framework, version 3.
+Use this theme if your project is based on the Bootstrap framework, version 3.
 
 ![bootstrap3](preview/bootstrap3.png)
 
