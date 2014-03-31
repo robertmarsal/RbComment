@@ -50,8 +50,9 @@ return array(
     ),
     'view_manager' => array(
         'template_map' => array(
-            'rbcomment/theme/uikit'   => __DIR__ . '/../view/theme/uikit.phtml',
-            'rbcomment/theme/default' => __DIR__ . '/../view/theme/default.phtml',
+            'rbcomment/theme/uikit'      => __DIR__ . '/../view/theme/uikit.phtml',
+            'rbcomment/theme/bootstrap3' => __DIR__ . '/../view/theme/bootstrap3.phtml',
+            'rbcomment/theme/default'    => __DIR__ . '/../view/theme/default.phtml',
         ),
     ),
     'rb_comment' => array(

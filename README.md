@@ -16,7 +16,6 @@ email notifications, Akismet, ZfcUser and Gravatar integration.
 - [Configuration](#configuration)
 - [CLI](#cli)
 - [Roadmap](#roadmap)
-- [Preview](#preview)
 - [Notes](#notes)
 
 ## Installation
@@ -69,9 +68,16 @@ The current themes (and possible values of the `$theme` parameter if not using a
 Basic theme with no external dependencies. Contains the minimum styling to make it look decent.
 
 #### uikit
-This theme requires the [UIkit](http://www.getuikit.com/) CSS framework. If you use it in your project this theme
-will make your comments box look awesome.
+This theme requires the [UIkit](http://www.getuikit.com/) CSS framework. Use this
+theme if your project is based on the UIkit framework.
 
+![uikit](preview/uikit.png)
+
+#### bootstrap3
+This theme requires the [Bootstrap v3.x.x](http://getbootstrap.com/) CSS framework.
+Use this theme if your project is based on the bootstrap framework, version 3.
+
+![bootstrap3](preview/bootstrap3.png)
 
 ## Configuration
 
@@ -202,10 +208,6 @@ pick one of this tasks :
 * Emoji integration
 * Block spammers by IP
 * More themes
-
-## Preview
-
-![Preview](demo/preview.png)
 
 ## Notes
 

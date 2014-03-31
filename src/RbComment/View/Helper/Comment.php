@@ -11,8 +11,9 @@ class Comment extends AbstractHelper implements ServiceLocatorAwareInterface
     private $serviceLocator;
 
     protected $themes = array(
-        'default' => true,
-        'uikit'   => true,
+        'default'    => true,
+        'uikit'      => true,
+        'bootstrap3' => true,
     );
 
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
