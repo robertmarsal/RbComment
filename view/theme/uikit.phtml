@@ -99,7 +99,17 @@ echo $this->formHidden($this->form->get('uri')->setValue($this->uri));
     <div class="uk-form-row">
         <?php if($this->zfcUserIdentity()) : ?>
             <?php echo $this->strings['signedinas'] ?>
-            <strong><?php echo $this->zfcUserIdentity()->getDisplayname() ?></strong>
+            <strong>
+                <?php
+                    $displayName = $this->zfcUserIdentity()->getDisplayname();
+
+                    if(empty($displayName)) {
+                        $displayName = $this->zfcUserIdentity()->getEmail();
+                    }
+
+                    echo $displayName;
+                ?>
+            </strong>
             <a class="uk-float-right" href="<?php echo $this->url('zfcuser/logout') ?>">
                 <?php echo $this->strings['signout'] ?>
             </a>

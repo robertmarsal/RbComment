@@ -66,17 +66,25 @@ The current themes (and possible values of the `$theme` parameter if not using a
 
 #### default
 Basic theme with no external dependencies. Contains the minimum styling to make it look decent.
+```php
+<?php echo $this->rbComment() ?>
+```
+![uikit](preview/default.png)
 
 #### uikit
 This theme requires the [UIkit](http://www.getuikit.com/) CSS framework. Use this
 theme if your project is based on the UIkit framework.
-
+```php
+<?php echo $this->rbComment('uikit') ?>
+```
 ![uikit](preview/uikit.png)
 
 #### bootstrap3
 This theme requires the [Bootstrap v3.x.x](http://getbootstrap.com/) CSS framework.
 Use this theme if your project is based on the Bootstrap framework, version 3.
-
+```php
+<?php echo $this->rbComment('bootstrap3') ?>
+```
 ![bootstrap3](preview/bootstrap3.png)
 
 ## Configuration
