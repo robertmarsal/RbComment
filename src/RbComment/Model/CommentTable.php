@@ -51,6 +51,37 @@ class CommentTable
     }
 
     /**
+     * Returns all the comments pending approval for a thread.
+     *
+     * @param string $thread
+     * @return ResultSet
+     */
+    public function fetchAllPendingForThread($thread)
+    {
+        $select = new Select($this->tableGateway->getTable());
+        $select->columns(array('id', 'author', 'content', 'contact',
+                               'published_on_raw' => 'published_on',
+                               'published_on' => new Expression("DATE_FORMAT(published_on, '%M %d, %Y %H:%i')")))
+               ->where(array('thread' => $thread, 'visible' => 0))
+               ->order('published_on_raw ASC');
+
+        $resultSet = $this->tableGateway->selectWith($select);
+
+        return $resultSet;
+    }
+
+    /**
+     * Allow custom comments selection.
+     *
+     * @param \Zend\Db\Sql\Select $select
+     * @return ResultSet
+     */
+    public function fetchAllUsingSelect(\Zend\Db\Sql\Select $select)
+    {
+        return $this->tableGateway->selectWith($select);
+    }
+
+    /**
      * Returns a comment by id.
      *
      * @param  int                      $id

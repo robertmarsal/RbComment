@@ -4,6 +4,7 @@ namespace RbCommentTest\Model;
 
 use RbComment\Model\Comment;
 use RbComment\Model\CommentTable;
+use Zend\Db\Sql\Select;
 use Zend\Db\ResultSet\ResultSet;
 use PHPUnit_Framework_TestCase;
 use ReflectionClass;
@@ -69,6 +70,50 @@ class CommentTableTest extends PHPUnit_Framework_TestCase
         $commentTable = new CommentTable($tableGatewayMock);
 
         $this->assertSame($resultSet, $commentTable->fetchAllForThread('test'));
+    }
+
+    public function testFetchAllPendingForThreadReturnsAllThePendingCommentsInAThread()
+    {
+        $resultSet        = new ResultSet();
+        $tableGatewayMock = $this->getMock(
+            'Zend\Db\TableGateway\TableGateway',
+            array('selectWith'),
+            array(),
+            '',
+            false
+        );
+
+        $tableGatewayMock->expects($this->once())
+                         ->method('selectWith')
+                         ->will($this->returnValue($resultSet));
+
+        $commentTable = new CommentTable($tableGatewayMock);
+
+        $this->assertSame($resultSet, $commentTable->fetchAllPendingForThread('test'));
+    }
+
+    public function testFetchAllUsingSelectUsesTheCustomSelectAndReturnsTheResult()
+    {
+        $tableGatewayMock =
+            $this->getMockBuilder('Zend\Db\TableGateway\TableGateway')
+                 ->setMethods(array('selectWith'))
+                 ->disableOriginalConstructor()
+                 ->getMock();
+
+        $resultSetMock = new ResultSet();
+        $selectMock = new Select();
+
+        $tableGatewayMock->expects($this->once())
+                         ->method('selectWith')
+                         ->with($selectMock)
+                         ->will($this->returnValue($resultSetMock));
+
+        $commentTableMock = new CommentTable($tableGatewayMock);
+
+        $this->assertSame(
+            $resultSetMock,
+            $commentTableMock->fetchAllUsingSelect($selectMock)
+        );
     }
 
     public function testCanRetrieveACommentByItsId()
