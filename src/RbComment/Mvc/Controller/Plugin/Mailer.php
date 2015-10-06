@@ -46,7 +46,7 @@ class Mailer extends AbstractPlugin implements ServiceLocatorAwareInterface
         $html->type = "text/html";
 
         $body = new MimeMessage();
-        $body->setParts(array($html));
+        $body->setParts([$html]);
 
         $message = new Message();
         $message->addFrom($mailerConfig['from'])

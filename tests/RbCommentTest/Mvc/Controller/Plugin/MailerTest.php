@@ -11,8 +11,8 @@ class MailerTest extends PHPUnit_Framework_TestCase
     {
         $serviceLocatorMock = $this->getMock(
             'Zend\ServiceManager\ServiceLocatorInterface',
-            array(),
-            array(),
+            [],
+            [],
             'ServiceLocatorInterface'
         );
 

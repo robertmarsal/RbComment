@@ -20,22 +20,22 @@ class Module implements ConsoleUsageProviderInterface
 
     public function getAutoloaderConfig()
     {
-        return array(
-            'Zend\Loader\ClassMapAutoloader' => array(
+        return [
+            'Zend\Loader\ClassMapAutoloader' => [
                 __DIR__ . '/autoload_classmap.php',
-            ),
-            'Zend\Loader\StandardAutoloader' => array(
-                'namespaces' => array(
+            ],
+            'Zend\Loader\StandardAutoloader' => [
+                'namespaces' => [
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     public function getServiceConfig()
     {
-        return array(
-            'factories' => array(
+        return [
+            'factories' => [
                 'RbComment\Model\CommentTable' =>  function($sm) {
                     $tableGateway = $sm->get('RbCommentTableGateway');
                     $table = new RbCommentTable($tableGateway);
@@ -69,14 +69,14 @@ class Module implements ConsoleUsageProviderInterface
                         $viewHelperManager->get('serverUrl')->__invoke()
                     );
                }
-            ),
-        );
+            ],
+        ];
     }
 
     public function getConsoleUsage(Console $console)
     {
-        return array(
+        return [
             'delete spam' => 'Delete all comments marked as spam from the database',
-        );
+        ];
     }
 }

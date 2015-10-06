@@ -18,27 +18,27 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0",
-        "zendframework/zend-mvc": "2.*",
-        "zendframework/zend-form": "2.*",
-        "zendframework/zend-db": "2.*",
-        "zendframework/zend-inputfilter": "2.*",
-        "zendframework/zend-view": "2.*",
-        "zendframework/zend-servicemanager": "2.*",
-        "zendframework/zend-loader": "2.*",
-        "zendframework/zend-stdlib": "2.*",
-        "zendframework/zend-modulemanager": "2.*",
-        "zendframework/zend-serializer": "2.*",
-        "zendframework/zend-mail": "2.*",
-        "zendframework/zend-mime": "2.*",
-        "zendframework/zend-i18n": "2.*",
+        "php": ">=5.5",
+        "zendframework/zend-mvc": "2.5.*",
+        "zendframework/zend-form": "2.5.*",
+        "zendframework/zend-db": "2.5.*",
+        "zendframework/zend-inputfilter": "2.5.*",
+        "zendframework/zend-view": "2.5.*",
+        "zendframework/zend-servicemanager": "2.5.*",
+        "zendframework/zend-loader": "2.5.*",
+        "zendframework/zend-stdlib": "2.5.*",
+        "zendframework/zend-modulemanager": "2.5.*",
+        "zendframework/zend-serializer": "2.5.*",
+        "zendframework/zend-mail": "2.5.*",
+        "zendframework/zend-mime": "2.5.*",
+        "zendframework/zend-i18n": "2.5.*",
         "zendframework/zendservice-akismet": "2.0.2",
-        "zendframework/zend-http": "2.*",
-        "zendframework/zend-console": "2.*"
+        "zendframework/zend-http": "2.5.*",
+        "zendframework/zend-console": "2.5.*"
     },
     "require-dev": {
         "robertboloc/zf2-components-list-generator": "dev-master",
-        "phpunit/phpunit": "3.7.*"
+        "phpunit/phpunit": "4.8.*"
     },
     "autoload": {
         "psr-0": {

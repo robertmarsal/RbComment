@@ -12,8 +12,8 @@
                     if($this->gravatar)  {
                         echo $this->gravatar(
                             $comment->contact,
-                            array('img_size' => '64'),
-                            array('class' => 'pull-left img-rounded')
+                            ['img_size' => '64'],
+                            ['class' => 'pull-left img-rounded']
                         );
                     }
                 ?>
@@ -50,9 +50,9 @@
     <div class="form-group <?php echo isset($this->validationResults->author) ? 'has-error' : '' ?>">
         <?php
             $author = $this->form->get('author');
-            $author->setAttributes(array(
+            $author->setAttributes([
                 'class' => 'form-control ',
-            ));
+            ]);
 
             echo $this->formRow($author);
         ?>
@@ -72,9 +72,9 @@
         <?php
 
         $contact = $this->form->get('contact');
-        $contact->setAttributes(array(
+        $contact->setAttributes([
             'class' => 'form-control ',
-        ));
+        ]);
 
         echo $this->formRow($contact);
         ?>
@@ -128,11 +128,11 @@
     <div class="form-group <?php echo isset($this->validationResults->content) ? 'has-error' : '' ?>">
         <?php
         $content = $this->form->get('content');
-        $content->setAttributes(array(
+        $content->setAttributes([
             'cols' => 120,
             'rows' => 6,
             'class' => 'form-control',
-        ));
+        ]);
 
         echo $this->formRow($content);
         ?>
@@ -151,9 +151,9 @@
     <div class="form-group">
         <?php
         $submit = $this->form->get('submit');
-        $submit->setAttributes(array(
+        $submit->setAttributes([
             'class' => 'btn btn-success',
-        ));
+        ]);
         echo $this->formSubmit($this->form->get('submit'))
         ?>
         <label>&nbsp;<?php echo $this->strings['required'] ?></label>

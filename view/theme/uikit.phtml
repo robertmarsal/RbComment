@@ -14,8 +14,8 @@
                         if($this->gravatar)  {
                             echo $this->gravatar(
                                 $comment->contact,
-                                array('img_size' => '48'),
-                                array('class' => 'uk-comment-avatar')
+                                ['img_size' => '48'],
+                                ['class' => 'uk-comment-avatar']
                             );
                         }
                     ?>
@@ -52,9 +52,9 @@ echo $this->formHidden($this->form->get('uri')->setValue($this->uri));
             <?php
             $authorErrorClass = isset($this->validationResults->author) ? 'uk-form-danger' : '';
             $author = $this->form->get('author');
-            $author->setAttributes(array(
+            $author->setAttributes([
                 'class' => 'uk-form-width-large ' . $authorErrorClass,
-            ));
+            ]);
 
             echo $this->formRow($author);
             ?>
@@ -75,9 +75,9 @@ echo $this->formHidden($this->form->get('uri')->setValue($this->uri));
             <?php
             $contactErrorClass = isset($this->validationResults->contact) ? 'uk-form-danger' : '';
             $contact = $this->form->get('contact');
-            $contact->setAttributes(array(
+            $contact->setAttributes([
                 'class' => 'uk-form-width-large ' . $contactErrorClass,
-            ));
+            ]);
 
             echo $this->formRow($contact);
             ?>
@@ -133,11 +133,11 @@ echo $this->formHidden($this->form->get('uri')->setValue($this->uri));
         <div class="uk-form-controls">
             <?php
             $content = $this->form->get('content');
-            $content->setAttributes(array(
+            $content->setAttributes([
                 'cols' => 120,
                 'rows' => 6,
                 'class' => isset($this->validationResults->content) ? 'uk-form-danger' : '',
-            ));
+            ]);
 
             echo $this->formRow($content);
             ?>
@@ -157,9 +157,9 @@ echo $this->formHidden($this->form->get('uri')->setValue($this->uri));
         <div class="uk-form-controls">
             <?php
             $submit = $this->form->get('submit');
-            $submit->setAttributes(array(
+            $submit->setAttributes([
                 'class' => 'uk-button uk-button-success',
-            ));
+            ]);
             echo $this->formSubmit($this->form->get('submit'))
             ?>
             <label>&nbsp;<?php echo $this->strings['required'] ?></label>
