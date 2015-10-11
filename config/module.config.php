@@ -1,4 +1,6 @@
 <?php
+use RbComment\Factory\CommentTableFactory;
+use RbComment\Model\CommentTable;
 
 return [
     'router' => [
@@ -42,6 +44,11 @@ return [
         'invokables' => [
             'rbMailer' => 'RbComment\Mvc\Controller\Plugin\Mailer',
         ]
+    ],
+    'service_manager' => [
+        'factories' => [
+            CommentTable::class => CommentTableFactory::class,
+        ],
     ],
     'view_helpers' => [
         'invokables' => [
