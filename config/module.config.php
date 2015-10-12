@@ -1,5 +1,5 @@
 <?php
-use RbComment\Factory\CommentTableFactory;
+use RbComment\Factory;
 use RbComment\Model\CommentTable;
 
 return [
@@ -47,7 +47,9 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            CommentTable::class => CommentTableFactory::class,
+            CommentTable::class => Factory\CommentTableFactory::class,
+            'RbComment\Akismet' => Factory\AkismetFactory::class,
+            'RbComment\Mailer'  => Factory\MailerFactory::class,
         ],
     ],
     'view_helpers' => [

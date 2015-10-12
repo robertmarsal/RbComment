@@ -1,8 +1,6 @@
 <?php
 namespace RbComment;
 
-use ZendService\Akismet\Akismet;
-use Zend\Mail\Transport\Sendmail;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 
@@ -23,36 +21,6 @@ class Module implements ConsoleUsageProviderInterface
                 'namespaces' => [
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ],
-            ],
-        ];
-    }
-
-    public function getServiceConfig()
-    {
-        return [
-            'factories' => [
-                /**
-                 * Placeholder transport config. Do not use this in production.
-                 * Replace with smtp.
-                 */
-                'RbComment\Mailer' => function () {
-                    return new Sendmail();
-                },
-                /**
-                 * Akismet service instance factory. Uses the config down below.
-                 */
-                'RbComment\Akismet' => function ($serviceManager) {
-
-                    $config = $serviceManager->get('Config');
-                    $viewHelperManager = $serviceManager->get('viewhelpermanager');
-
-                    $akismetConfig = $config['rb_comment']['akismet'];
-
-                    return new Akismet(
-                        $akismetConfig['api_key'],
-                        $viewHelperManager->get('serverUrl')->__invoke()
-                    );
-               }
             ],
         ];
     }
