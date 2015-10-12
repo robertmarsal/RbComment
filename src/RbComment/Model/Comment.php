@@ -1,5 +1,4 @@
 <?php
-
 namespace RbComment\Model;
 
 use Zend\InputFilter\Factory as InputFactory;

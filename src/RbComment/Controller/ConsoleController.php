@@ -1,5 +1,4 @@
 <?php
-
 namespace RbComment\Controller;
 
 use Zend\Console\Console;

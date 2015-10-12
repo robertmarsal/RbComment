@@ -1,5 +1,4 @@
 <?php
-
 namespace RbComment\Form;
 
 use Zend\Form\Form;

@@ -1,4 +1,5 @@
 <?php
+use RbComment\Controller;
 use RbComment\Factory;
 use RbComment\Model\CommentTable;
 
@@ -36,8 +37,8 @@ return [
     ],
     'controllers' => [
         'invokables' => [
-            'RbComment\Controller\Comment' => 'RbComment\Controller\CommentController',
-            'RbComment\Controller\Console' => 'RbComment\Controller\ConsoleController',
+            'RbComment\Controller\Comment' => Controller\CommentController::class,
+            'RbComment\Controller\Console' => Controller\ConsoleController::class,
         ],
     ],
     'controller_plugins' => [
