@@ -3,15 +3,13 @@ namespace RbComment\Controller;
 
 use RbComment\Model\Comment;
 use RbComment\Form\CommentForm;
+use RbComment\Util\CommentTableAwareTrait;
 use Zend\Http\PhpEnvironment\RemoteAddress;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class CommentController extends AbstractActionController
 {
-    /**
-     * @var \RbComment\Model\CommentTable
-     */
-    protected $commentTable;
+    use CommentTableAwareTrait;
 
     /**
      * @var \ZendService\Akismet\Akismet
@@ -85,19 +83,6 @@ class CommentController extends AbstractActionController
             'comment_author_email' => $comment->contact,
             'comment_content' => $comment->content,
         ]);
-    }
-
-    /**
-     * @return \RbComment\Model\CommentTable
-     */
-    public function getCommentTable()
-    {
-        if (!$this->commentTable) {
-            $sm = $this->getServiceLocator();
-            $this->commentTable = $sm->get('RbComment\Model\CommentTable');
-        }
-
-        return $this->commentTable;
     }
 
     /**
