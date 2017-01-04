@@ -1,5 +1,4 @@
 <?php
-
 namespace RbComment\Form;
 
 use Zend\Form\Form;
@@ -10,68 +9,68 @@ class CommentForm extends Form
     {
         parent::__construct('rbcomment');
 
-        $this->setAttributes(array(
+        $this->setAttributes([
             'method' => 'post',
             'action' => '/rbcomment/add',
-        ));
+        ]);
 
-        $this->add(array(
+        $this->add([
             'type' => 'Csrf',
             'name' => 'csrf',
-        ));
+        ]);
 
-        $this->add(array(
+        $this->add([
             'name' => 'id',
-            'attributes' => array(
+            'attributes' => [
                 'type'  => 'hidden',
-            ),
-        ));
+            ],
+        ]);
 
-        $this->add(array(
+        $this->add([
             'name' => 'thread',
-            'attributes' => array(
+            'attributes' => [
                 'type'  => 'hidden',
-            ),
-        ));
+            ],
+        ]);
 
-        $this->add(array(
+        $this->add([
             'name' => 'uri',
-            'attributes' => array(
+            'attributes' => [
                 'type'  => 'hidden',
-            ),
-        ));
+            ],
+        ]);
 
-        $this->add(array(
+        $this->add([
             'name' => 'author',
-            'attributes' => array(
+            'attributes' => [
                 'type'  => 'text',
                 'placeholder' => $strings['author'],
-            ),
-        ));
+            ],
+        ]);
 
-        $this->add(array(
+        $this->add([
             'name' => 'contact',
-            'attributes' => array(
+            'attributes' => [
                 'type'  => 'text',
                 'placeholder' => $strings['contact'],
-            ),
-        ));
+            ],
+        ]);
 
-        $this->add(array(
+        $this->add([
             'type' => 'Textarea',
             'name' => 'content',
-            'attributes' => array(
+            'attributes' => [
                 'placeholder' => $strings['content'],
-            ),
-        ));
+            ],
+        ]);
 
-        $this->add(array(
+        $this->add([
             'name' => 'submit',
-            'attributes' => array(
+            'attributes' => [
                 'type'  => 'submit',
                 'value' => $strings['submit'],
                 'id' => 'submitbutton',
-            ),
-        ));
+            ],
+        ]);
     }
 }

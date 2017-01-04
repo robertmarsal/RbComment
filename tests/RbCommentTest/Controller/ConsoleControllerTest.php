@@ -14,8 +14,8 @@ class ConsoleControllerTest extends PHPUnit_Framework_TestCase
     {
         $this->serviceLocatorMock = $this->getMock(
             'Zend\ServiceManager\ServiceLocatorInterface',
-            array('get', 'has'),
-            array(),
+            ['get', 'has'],
+            [],
             'ServiceLocatorInterface'
         );
     }
@@ -24,9 +24,9 @@ class ConsoleControllerTest extends PHPUnit_Framework_TestCase
     {
         $deletedCount = rand(1, 100);
 
-        $commentTableMock = $this->getMock('RbComment\Model\CommentTable', array(
+        $commentTableMock = $this->getMock('RbComment\Model\CommentTable', [
             'deleteSpam'
-        ), array(), '', false);
+        ], [], '', false);
 
         // Expect this to be called once
         $commentTableMock->expects($this->once())
@@ -42,8 +42,8 @@ class ConsoleControllerTest extends PHPUnit_Framework_TestCase
         // CommentController Mock
         $consoleControllerMock = $this->getMock(
             'RbComment\Controller\ConsoleController',
-            array('getServiceLocator'),
-            array(),
+            ['getServiceLocator'],
+            [],
             '',
             false
         );
@@ -64,8 +64,8 @@ class ConsoleControllerTest extends PHPUnit_Framework_TestCase
     {
         $tableGatewayMock = $this->getMock(
             'Zend\Db\TableGateway\TableGateway',
-            array(),
-            array(),
+            [],
+            [],
             '',
             false
         );

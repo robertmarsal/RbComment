@@ -1,5 +1,4 @@
 <?php
-
 namespace RbComment\Model;
 
 use Zend\Db\Sql\Select;
@@ -39,10 +38,10 @@ class CommentTable
     public function fetchAllForThread($thread)
     {
         $select = new Select($this->tableGateway->getTable());
-        $select->columns(array('id', 'author', 'content', 'contact',
+        $select->columns(['id', 'author', 'content', 'contact',
                                'published_on_raw' => 'published_on',
-                               'published_on' => new Expression("DATE_FORMAT(published_on, '%M %d, %Y %H:%i')")))
-               ->where(array('thread' => $thread, 'visible' => 1))
+                               'published_on' => new Expression("DATE_FORMAT(published_on, '%M %d, %Y %H:%i')")])
+               ->where(['thread' => $thread, 'visible' => 1])
                ->order('published_on_raw ASC');
 
         $resultSet = $this->tableGateway->selectWith($select);
@@ -59,10 +58,10 @@ class CommentTable
     public function fetchAllPendingForThread($thread)
     {
         $select = new Select($this->tableGateway->getTable());
-        $select->columns(array('id', 'author', 'content', 'contact',
+        $select->columns(['id', 'author', 'content', 'contact',
                                'published_on_raw' => 'published_on',
-                               'published_on' => new Expression("DATE_FORMAT(published_on, '%M %d, %Y %H:%i')")))
-               ->where(array('thread' => $thread, 'visible' => 0))
+                               'published_on' => new Expression("DATE_FORMAT(published_on, '%M %d, %Y %H:%i')")])
+               ->where(['thread' => $thread, 'visible' => 0])
                ->order('published_on_raw ASC');
 
         $resultSet = $this->tableGateway->selectWith($select);
@@ -90,7 +89,7 @@ class CommentTable
     public function getComment($id)
     {
         $id  = (int) $id;
-        $rowset = $this->tableGateway->select(array('id' => $id));
+        $rowset = $this->tableGateway->select(['id' => $id]);
         $row = $rowset->current();
 
         return $row;
@@ -104,7 +103,7 @@ class CommentTable
      */
     public function saveComment(Comment $comment)
     {
-        $data = array(
+        $data = [
             'thread' => $comment->thread,
             'uri' => $comment->uri,
             'author' => $comment->author,
@@ -112,7 +111,7 @@ class CommentTable
             'content' => $comment->content,
             'visible' => $comment->visible,
             'spam' => $comment->spam,
-        );
+        ];
 
         $id = (int) $comment->id;
         if ($id === 0) {
@@ -120,7 +119,7 @@ class CommentTable
             $id = $this->tableGateway->lastInsertValue;
         } else {
             if ($this->getComment($id)) {
-                $this->tableGateway->update($data, array('id' => $id));
+                $this->tableGateway->update($data, ['id' => $id]);
             }
         }
 
@@ -134,7 +133,7 @@ class CommentTable
      */
     public function deleteComment($id)
     {
-        $this->tableGateway->delete(array('id' => $id));
+        $this->tableGateway->delete(['id' => $id]);
     }
 
 
@@ -145,6 +144,6 @@ class CommentTable
      */
     public function deleteSpam()
     {
-        return $this->tableGateway->delete(array('spam' => 1));
+        return $this->tableGateway->delete(['spam' => 1]);
     }
 }

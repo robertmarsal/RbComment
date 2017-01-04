@@ -10,16 +10,16 @@ use ReflectionClass;
 
 class CommentControllerTest extends PHPUnit_Framework_TestCase
 {
-    protected $configMock = array(
-        'rb_comment' => array(
-            'strings' => array(
+    protected $configMock = [
+        'rb_comment' => [
+            'strings' => [
                 'author'  => 'author',
                 'contact' => 'contact',
                 'content' => 'content',
                 'submit'  => 'submit',
-            ),
-        ),
-    );
+            ],
+        ],
+    ];
 
     protected $requestMock;
 
@@ -29,15 +29,15 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
     {
         $this->serviceLocatorMock = $this->getMock(
             'Zend\ServiceManager\ServiceLocatorInterface',
-            array('get', 'has'),
-            array(),
+            ['get', 'has'],
+            [],
             'ServiceLocatorInterface'
         );
 
         $this->requestMock = $this->getMock(
             'Zend\Http\Request',
-            array('isPost', 'getPost'),
-            array(),
+            ['isPost', 'getPost'],
+            [],
             '',
             false
         );
@@ -62,8 +62,8 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
         // CommentController Mock
         $commentControllerMock = $this->getMock(
             'RbComment\Controller\CommentController',
-            array('getRequest', 'getServiceLocator'),
-            array(),
+            ['getRequest', 'getServiceLocator'],
+            [],
             '',
             false
         );
@@ -82,11 +82,11 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
     public function testAddActionLogsFormErrorsIntoTheRbCommentNamespace()
     {
         //'contact' key is missing on purpose
-        $postMock = array(
+        $postMock = [
             'author' => 'Tester',
             'content' => 'test',
             'uri' => '/test',
-        );
+        ];
 
         // ServiceLocator Mock Setup
         $this->serviceLocatorMock->expects($this->once())
@@ -106,8 +106,8 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
         // FlashMessenger Mock
         $flashMessengerMock = $this->getMock(
             'Zend\Mvc\Controller\Plugin\FlashMessenger',
-            array('setNamespace', 'addMessage'),
-            array(),
+            ['setNamespace', 'addMessage'],
+            [],
             '',
             false
         );
@@ -119,8 +119,8 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
         // Redirect Mock
         $redirectMock = $this->getMock(
             'Zend\Mvc\Controller\Plugin\Redirect',
-            array('toUrl'),
-            array(),
+            ['toUrl'],
+            [],
             '',
             false
         );
@@ -132,8 +132,8 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
         // CommentController Mock
         $commentControllerMock = $this->getMock(
             'RbComment\Controller\CommentController',
-            array('getRequest', 'getServiceLocator', 'flashMessenger', 'redirect'),
-            array(),
+            ['getRequest', 'getServiceLocator', 'flashMessenger', 'redirect'],
+            [],
             '',
             false
         );
@@ -162,20 +162,20 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
      */
     public function testIsSpam($comment, $isSpam)
     {
-        $rbCommentConfig = (object) array(
-            'akismet' => array(
-                'proxy' => array(
+        $rbCommentConfig = (object) [
+            'akismet' => [
+                'proxy' => [
                     'use' => false,
-                    'trusted' => array(),
+                    'trusted' => [],
                     'header' => '',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $akismetServiceMock = $this->getMock(
             'ZendService\Akismet\Akismet',
-            array('isSpam'),
-            array(),
+            ['isSpam'],
+            [],
             '',
             false
         );
@@ -202,36 +202,36 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
 
     public static function isSpamDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 // comment
-                (object) array(
+                (object) [
                     'author' => 'not a spammer',
                     'contact' => 'me@me.com',
                     'content' => 'test',
-                ),
+                ],
                 // isSpam
                 false,
-            ),
-            array(
+            ],
+            [
                 // comment
-                (object) array(
+                (object) [
                     'author' => 'spammer',
                     'contact' => 'spam@spamfactory.com',
                     'content' => 'spam',
-                ),
+                ],
                 // isSpam
                 true,
-            ),
-        );
+            ],
+        ];
     }
 
     public function testGetCommentTableReturnsAnInstanceOfCommentTable()
     {
         $tableGatewayMock = $this->getMock(
             'Zend\Db\TableGateway\TableGateway',
-            array(),
-            array(),
+            [],
+            [],
             '',
             false
         );

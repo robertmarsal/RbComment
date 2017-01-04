@@ -60,8 +60,8 @@
                         if($this->gravatar)  {
                             echo $this->gravatar(
                                 $comment->contact,
-                                array('img_size' => '48'),
-                                array('class' => 'rb-comment-avatar')
+                                ['img_size' => '48'],
+                                ['class' => 'rb-comment-avatar']
                             );
                         }
                     ?>
@@ -95,9 +95,9 @@
     <?php
         $authorErrorClass = isset($this->validationResults->author) ? 'rb-form-danger' : '';
         $author = $this->form->get('author');
-        $author->setAttributes(array(
+        $author->setAttributes([
             'class' => 'rb-form-input ' . $authorErrorClass,
-        ));
+        ]);
 
         echo $this->formRow($author);
     ?>
@@ -116,9 +116,9 @@
     <?php
     $contactErrorClass = isset($this->validationResults->contact) ? 'rb-form-danger' : '';
     $contact = $this->form->get('contact');
-    $contact->setAttributes(array(
+    $contact->setAttributes([
         'class' => 'rb-form-input ' . $contactErrorClass,
-    ));
+    ]);
 
     echo $this->formRow($contact);
     ?>
@@ -173,11 +173,11 @@
         <?php
             $contentErorClass = isset($this->validationResults->content) ? 'rb-form-danger' : '';
             $content = $this->form->get('content');
-            $content->setAttributes(array(
+            $content->setAttributes([
                 'cols' => 116,
                 'rows' => 6,
                 'class' => 'rb-form-input ' . $contentErorClass,
-            ));
+            ]);
 
             echo $this->formRow($content);
         ?>
