@@ -15,7 +15,7 @@ class CommentTest extends PHPUnit_Framework_TestCase
     {
         $this->testComment = new Comment();
 
-        $this->testArray = array(
+        $this->testArray = [
             'id' => 1,
             'thread' => 12345,
             'uri' => 'test-uri',
@@ -25,7 +25,7 @@ class CommentTest extends PHPUnit_Framework_TestCase
             'visible' => 1,
             'spam' => 0,
             'published_on' => 12345678,
-        );
+        ];
     }
 
     public function testCommentInitialState()
@@ -95,23 +95,23 @@ class CommentTest extends PHPUnit_Framework_TestCase
 
     public static function inputFilterDataProvider()
     {
-        return array(
+        return [
             // False because no data is sent
-            array(
-                array(),
+            [
+                [],
                 false,
-            ),
+            ],
             // True because everything is ok
-            array(
-                array(
+            [
+                [
                     'id' => 1,
                     'thread' => md5('test'),
                     'author' => 'Robert Boloc',
                     'contact' => 'robert@test.com',
                     'content' => 'bla bla bla',
-                ),
+                ],
                 true,
-            ),
-        );
+            ],
+        ];
     }
 }

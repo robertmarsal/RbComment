@@ -38,7 +38,8 @@
     },
     "require-dev": {
         "robertboloc/zf2-components-list-generator": "dev-master",
-        "phpunit/phpunit": "3.7.*"
+        "phpunit/phpunit": "3.7.*",
+        "squizlabs/php_codesniffer": "^2.7"
     },
     "autoload": {
         "psr-0": {
