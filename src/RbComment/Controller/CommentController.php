@@ -78,14 +78,14 @@ class CommentController extends AbstractActionController
         $remote->setTrustedProxies($rbCommentConfig->akismet['proxy']['trusted']);
         $remote->setProxyHeader($rbCommentConfig->akismet['proxy']['header']);
 
-        return $this->getAkismetService()->isSpam(array(
+        return $this->getAkismetService()->isSpam([
             'user_ip' => $remote->getIpAddress(),
             'user_agent' => filter_input(INPUT_SERVER, 'HTTP_USER_AGENT'),
             'comment_type' => 'comment',
             'comment_author' => $comment->author,
             'comment_author_email' => $comment->contact,
             'comment_content' => $comment->content,
-        ));
+        ]);
     }
 
     /**

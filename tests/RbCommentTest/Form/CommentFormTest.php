@@ -10,12 +10,12 @@ class CommentFormTest extends PHPUnit_Framework_TestCase
     /**
      * @var array
      */
-    protected $formStrings = array(
+    protected $formStrings = [
         'author'  => 'author',
         'contact' => 'contact',
         'content' => 'content',
         'submit'  => 'submit',
-    );
+    ];
 
     public function testFormConstructorCreatesAllItems()
     {

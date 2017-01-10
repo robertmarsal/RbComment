@@ -91,71 +91,71 @@ class Comment implements InputFilterAwareInterface
             $inputFilter = new InputFilter();
             $factory     = new InputFactory();
 
-            $inputFilter->add($factory->createInput(array(
+            $inputFilter->add($factory->createInput([
                 'name'     => 'id',
                 'required' => true,
-                'filters'  => array(
-                    array('name' => 'Int'),
-                ),
-            )));
+                'filters'  => [
+                    ['name' => 'Int'],
+                ],
+            ]));
 
-            $inputFilter->add($factory->createInput(array(
+            $inputFilter->add($factory->createInput([
                 'name'     => 'thread',
                 'required' => true,
-                'filters'  => array(
-                    array('name' => 'Alnum'),
-                ),
-            )));
+                'filters'  => [
+                    ['name' => 'Alnum'],
+                ],
+            ]));
 
-            $inputFilter->add($factory->createInput(array(
+            $inputFilter->add($factory->createInput([
                 'name'     => 'author',
                 'required' => true,
-                'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
+                'filters'  => [
+                    ['name' => 'StripTags'],
+                    ['name' => 'StringTrim'],
+                ],
+                'validators' => [
+                    [
                         'name'    => 'StringLength',
-                        'options' => array(
+                        'options' => [
                             'encoding' => 'UTF-8',
                             'min'      => 1,
                             'max'      => 150,
-                        ),
-                    ),
-                ),
-            )));
+                        ],
+                    ],
+                ],
+            ]));
 
-            $inputFilter->add($factory->createInput(array(
+            $inputFilter->add($factory->createInput([
                 'name'     => 'contact',
                 'required' => true,
-                'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
+                'filters'  => [
+                    ['name' => 'StripTags'],
+                    ['name' => 'StringTrim'],
+                ],
+                'validators' => [
+                    [
                         'name' => 'EmailAddress',
-                    ),
-                    array(
+                    ],
+                    [
                         'name'    => 'StringLength',
-                        'options' => array(
+                        'options' => [
                             'encoding' => 'UTF-8',
                             'min'      => 1,
                             'max'      => 200,
-                        ),
-                    ),
-                ),
-            )));
+                        ],
+                    ],
+                ],
+            ]));
 
-            $inputFilter->add($factory->createInput(array(
+            $inputFilter->add($factory->createInput([
                 'name'     => 'content',
                 'required' => true,
-                'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-            )));
+                'filters'  => [
+                    ['name' => 'StripTags'],
+                    ['name' => 'StringTrim'],
+                ],
+            ]));
 
             $this->inputFilter = $inputFilter;
         }
