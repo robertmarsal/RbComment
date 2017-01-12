@@ -4,6 +4,7 @@ namespace RbCommentTest\Controller;
 
 use RbComment\Model\CommentTable;
 use RbComment\Controller\CommentController;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use ZendService\Akismet\Akismet;
 use PHPUnit_Framework_TestCase;
 use ReflectionClass;
@@ -27,12 +28,7 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->serviceLocatorMock = $this->getMock(
-            'Zend\ServiceManager\ServiceLocatorInterface',
-            ['get', 'has'],
-            [],
-            'ServiceLocatorInterface'
-        );
+        $this->serviceLocatorMock = $this->createMock(ServiceLocatorInterface::class);
 
         $this->requestMock = $this->getMock(
             'Zend\Http\Request',
