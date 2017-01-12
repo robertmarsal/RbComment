@@ -12,12 +12,7 @@ class ConsoleControllerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->serviceLocatorMock = $this->getMock(
-            'Zend\ServiceManager\ServiceLocatorInterface',
-            ['get', 'has'],
-            [],
-            'ServiceLocatorInterface'
-        );
+        $this->serviceLocatorMock = $this->createMock(ServiceLocatorInterface::class);
     }
 
     public function testDeleteSpamAction()

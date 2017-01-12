@@ -1,4 +1,7 @@
 <?php
+namespace RbComment;
+
+use RbComment\Factory;
 
 return [
     'router' => [
@@ -44,8 +47,8 @@ return [
         ]
     ],
     'view_helpers' => [
-        'invokables' => [
-            'rbComment' => 'RbComment\View\Helper\Comment',
+        'factories' => [
+            'rbComment' => Factory\View\Helper\CommentFactory::class,
         ]
     ],
     'view_manager' => [
