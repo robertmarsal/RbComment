@@ -36,8 +36,10 @@ return [
         ],
     ],
     'controllers' => [
+        'factories' => [
+            'RbComment\Controller\Comment' => Factory\Controller\CommentControllerFactory::class,
+        ],
         'invokables' => [
-            'RbComment\Controller\Comment' => 'RbComment\Controller\CommentController',
             'RbComment\Controller\Console' => 'RbComment\Controller\ConsoleController',
         ],
     ],
