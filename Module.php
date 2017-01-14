@@ -45,7 +45,7 @@ class Module implements ConsoleUsageProviderInterface
                 'RbComment\Akismet' => function ($serviceManager) {
 
                     $config = $serviceManager->get('Config');
-                    $viewHelperManager = $serviceManager->get('viewhelpermanager');
+                    $viewHelperManager = $serviceManager->get('ViewHelperManager');
 
                     $akismetConfig = $config['rb_comment']['akismet'];
 
