@@ -2,6 +2,8 @@
 namespace RbComment;
 
 use RbComment\Factory;
+use RbComment\Model\CommentTable;
+use Zend\Mail\Transport\Sendmail;
 
 return [
     'router' => [
@@ -47,6 +49,20 @@ return [
         'invokables' => [
             'rbMailer' => 'RbComment\Mvc\Controller\Plugin\Mailer',
         ]
+    ],
+    'service_manager' => [
+        'factories' => [
+            CommentTable::class     => Factory\Model\CommentTableFactory::class,
+            'RbCommentTableGateway' => Factory\Model\RbCommentTableGatewayFactory::class,
+            'RbComment\Akismet'     => Factory\Service\AkismetServiceFactory::class,
+        ],
+        'invokables' => [
+            /**
+             * Placeholder transport config. Do not use this in production.
+             * Replace with SMTP.
+             */
+            'RbComment\Mailer' => Sendmail::class,
+        ],
     ],
     'view_helpers' => [
         'factories' => [
