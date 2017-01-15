@@ -23,8 +23,7 @@ class Comment extends AbstractHelper
         $routerService,
         array $configService,
         CommentTable $commentTable
-    )
-    {
+    ) {
         $this->viewHelperManager = $viewHelperManager;
         $this->routerService     = $routerService;
         $this->configService     = $configService;
