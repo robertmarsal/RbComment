@@ -1,35 +1,24 @@
 <?php
-
 namespace RbComment\Controller;
 
+use RbComment\Model\CommentTable;
 use Zend\Console\Console;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class ConsoleController extends AbstractActionController
 {
-    /**
-     * @var \RbComment\Model\CommentTable
-     */
-    protected $commentTable;
+    private $commentTable;
+
+    public function __construct(CommentTable $commentTable)
+    {
+        $this->commentTable = $commentTable;
+    }
 
     public function deleteSpamAction()
     {
-        $deleted = $this->getCommentTable()->deleteSpam();
+        $deleted = $this->commentTable->deleteSpam();
 
         $console = Console::getInstance();
         $console->writeLine($deleted . ' spam comments removed');
-    }
-
-    /**
-     * @return \RbComment\Model\CommentTable
-     */
-    public function getCommentTable()
-    {
-        if (!$this->commentTable) {
-            $sm = $this->getServiceLocator();
-            $this->commentTable = $sm->get('RbComment\Model\CommentTable');
-        }
-
-        return $this->commentTable;
     }
 }
