@@ -40,9 +40,7 @@ return [
     'controllers' => [
         'factories' => [
             'RbComment\Controller\Comment' => Factory\Controller\CommentControllerFactory::class,
-        ],
-        'invokables' => [
-            'RbComment\Controller\Console' => 'RbComment\Controller\ConsoleController',
+            'RbComment\Controller\Console' => Factory\Controller\ConsoleControllerFactory::class,
         ],
     ],
     'controller_plugins' => [
