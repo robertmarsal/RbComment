@@ -1,44 +1,35 @@
 <?php
-
 namespace RbComment\Mvc\Controller\Plugin;
 
 use Zend\Mail\Message;
 use Zend\Mime\Part as MimePart;
 use Zend\Mime\Message as MimeMessage;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 
-class Mailer extends AbstractPlugin implements ServiceLocatorAwareInterface
+class Mailer extends AbstractPlugin
 {
-    private $serviceLocator;
+    private $serverUrlHelper;
+    private $mailerService;
+    private $configService;
 
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    public function __construct(
+        $serverUrlHelper,
+        $mailerService,
+        array $configService
+    )
     {
-        $this->serviceLocator = $serviceLocator;
-
-        return $this;
-    }
-
-    public function getServiceLocator()
-    {
-        return $this->serviceLocator;
+        $this->serverUrlHelper = $serverUrlHelper;
+        $this->mailerService   = $mailerService;
+        $this->configService   = $configService;
     }
 
     public function __invoke($comment)
     {
-        $serviceManager = $this->getServiceLocator()->getServiceLocator();
-        $viewHelperManager = $serviceManager->get('viewhelpermanager');
-        $serverUrlHelper = $viewHelperManager->get('serverUrl');
-
-        $mailerService = $serviceManager->get('RbComment\Mailer');
-
-        $config = $serviceManager->get('Config');
-        $mailerConfig = $config['rb_comment']['email'];
+        $mailerConfig = $this->configService['rb_comment']['email'];
 
         $htmlContent = $comment->content;
         $htmlContent .= '<br><br>';
-        $htmlContent .= '<a href="' . $serverUrlHelper() . $comment->uri . '#rbcomment-' . $comment->id . '">' .
+        $htmlContent .= '<a href="' . $this->serverUrlHelper() . $comment->uri . '#rbcomment-' . $comment->id . '">' .
                         $mailerConfig['context_link_text'] .
                         '</a>';
 
@@ -57,6 +48,6 @@ class Mailer extends AbstractPlugin implements ServiceLocatorAwareInterface
             $message->addTo($mConfig);
         }
 
-        $mailerService->send($message);
+        $this->mailerService->send($message);
     }
 }
