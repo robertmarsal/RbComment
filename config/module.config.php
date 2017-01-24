@@ -44,8 +44,8 @@ return [
         ],
     ],
     'controller_plugins' => [
-        'invokables' => [
-            'rbMailer' => 'RbComment\Mvc\Controller\Plugin\Mailer',
+        'factories' => [
+            'rbMailer' => Factory\Mvc\Controller\Plugin\MailerFactory::class,
         ]
     ],
     'service_manager' => [
