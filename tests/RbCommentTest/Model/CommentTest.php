@@ -1,5 +1,4 @@
 <?php
-
 namespace RbCommentTest\Model;
 
 use RbComment\Model\Comment;
@@ -28,6 +27,9 @@ class CommentTest extends PHPUnit_Framework_TestCase
         ];
     }
 
+    /**
+     * @group model
+     */
     public function testCommentInitialState()
     {
         $this->assertNull($this->testComment->id);
@@ -41,6 +43,9 @@ class CommentTest extends PHPUnit_Framework_TestCase
         $this->assertNull($this->testComment->published_on);
     }
 
+    /**
+     * @group model
+     */
     public function testExchangeArrayExchangesTheValues()
     {
         $this->testComment->exchangeArray($this->testArray);
@@ -56,6 +61,9 @@ class CommentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->testArray['published_on'], $this->testComment->published_on);
     }
 
+    /**
+     * @group model
+     */
     public function testToArrayReturnsAllTheValues()
     {
         $this->testComment->exchangeArray($this->testArray);
@@ -74,6 +82,7 @@ class CommentTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @group model
      * @expectedException Exception
      * @expectedExceptionMessage Not used
      */
@@ -83,6 +92,7 @@ class CommentTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @group model
      * @dataProvider inputFilterDataProvider
      */
     public function testGetInputFilterValidation($data, $validity)
@@ -93,6 +103,9 @@ class CommentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($inputFilter->isValid(), $validity);
     }
 
+    /**
+     * @return array
+     */
     public static function inputFilterDataProvider()
     {
         return [
@@ -104,9 +117,9 @@ class CommentTest extends PHPUnit_Framework_TestCase
             // True because everything is ok
             [
                 [
-                    'id' => 1,
-                    'thread' => md5('test'),
-                    'author' => 'Robert Boloc',
+                    'id'      => 1,
+                    'thread'  => md5('test'),
+                    'author'  => 'Robert Boloc',
                     'contact' => 'robert@test.com',
                     'content' => 'bla bla bla',
                 ],
