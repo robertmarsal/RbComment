@@ -15,14 +15,14 @@ class CommentTest extends PHPUnit_Framework_TestCase
         $this->testComment = new Comment();
 
         $this->testArray = [
-            'id' => 1,
-            'thread' => 12345,
-            'uri' => 'test-uri',
-            'author' => 'Robert Boloc',
-            'contact' => 'contact@robertboloc.eu',
-            'content' => 'This is a test comment',
-            'visible' => 1,
-            'spam' => 0,
+            'id'           => 1,
+            'thread'       => 12345,
+            'uri'          => 'test-uri',
+            'author'       => 'Robert Boloc',
+            'contact'      => 'contact@robertboloc.eu',
+            'content'      => 'This is a test comment',
+            'visible'      => 1,
+            'spam'         => 0,
             'published_on' => 12345678,
         ];
     }

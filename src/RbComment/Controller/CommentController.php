@@ -82,8 +82,8 @@ class CommentController extends AbstractActionController
     /**
      * Checks if a comment is spam using the akismet service.
      *
-     * @param  \RbComment\Model\Comment $comment
-     * @param  mixed                    $rbCommentConfig
+     * @param  Comment $comment
+     * @param  mixed   $rbCommentConfig
      * @return boolean
      */
     protected function isSpam($comment, $rbCommentConfig)
@@ -93,13 +93,15 @@ class CommentController extends AbstractActionController
         $remote->setTrustedProxies($rbCommentConfig->akismet['proxy']['trusted']);
         $remote->setProxyHeader($rbCommentConfig->akismet['proxy']['header']);
 
-        return $this->akismetService->isSpam([
-            'user_ip' => $remote->getIpAddress(),
-            'user_agent' => filter_input(INPUT_SERVER, 'HTTP_USER_AGENT'),
-            'comment_type' => 'comment',
-            'comment_author' => $comment->author,
+        $content = [
+            'user_ip'              => $remote->getIpAddress(),
+            'user_agent'           => filter_input(INPUT_SERVER, 'HTTP_USER_AGENT'),
+            'comment_type'         => 'comment',
+            'comment_author'       => $comment->author,
             'comment_author_email' => $comment->contact,
-            'comment_content' => $comment->content,
-        ]);
+            'comment_content'      => $comment->content,
+        ];
+
+        return $this->akismetService->isSpam($content);
     }
 }
