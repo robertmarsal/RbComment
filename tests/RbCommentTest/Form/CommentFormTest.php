@@ -1,5 +1,4 @@
 <?php
-
 namespace RbCommentTest\Form;
 
 use RbComment\Form\CommentForm;

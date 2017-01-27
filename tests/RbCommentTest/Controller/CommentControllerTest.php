@@ -68,9 +68,9 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
     {
         //'contact' key is missing on purpose
         $postMock = [
-            'author' => 'Tester',
+            'author'  => 'Tester',
             'content' => 'test',
-            'uri' => '/test',
+            'uri'     => '/test',
         ];
 
         // Request Mock Setup
@@ -130,9 +130,9 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
         $rbCommentConfig = (object) [
             'akismet' => [
                 'proxy' => [
-                    'use' => false,
+                    'use'     => false,
                     'trusted' => [],
-                    'header' => '',
+                    'header'  => '',
                 ],
             ],
         ];
@@ -161,13 +161,16 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($isSpam, $isSpamReflection->invoke($commentController, $comment, $rbCommentConfig));
     }
 
+    /**
+     * @return array
+     */
     public static function isSpamDataProvider()
     {
         return [
             [
                 // comment
                 (object) [
-                    'author' => 'not a spammer',
+                    'author'  => 'not a spammer',
                     'contact' => 'me@me.com',
                     'content' => 'test',
                 ],
@@ -177,7 +180,7 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
             [
                 // comment
                 (object) [
-                    'author' => 'spammer',
+                    'author'  => 'spammer',
                     'contact' => 'spam@spamfactory.com',
                     'content' => 'spam',
                 ],

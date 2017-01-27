@@ -1,5 +1,4 @@
 <?php
-
 namespace RbComment\Model;
 
 use Zend\InputFilter\Factory as InputFactory;
@@ -56,7 +55,7 @@ class Comment implements InputFilterAwareInterface
     public $published_on;
 
     /**
-     * @var Zend\InputFilter\InputFilter
+     * @var InputFilter
      */
     protected $inputFilter;
 

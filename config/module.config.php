@@ -30,7 +30,7 @@ return [
                         'route' => 'delete spam',
                         'defaults' => [
                             'controller' => 'RbComment\Controller\Console',
-                            'action' => 'delete-spam',
+                            'action'     => 'delete-spam',
                         ],
                     ],
                 ],
@@ -80,15 +80,15 @@ return [
          */
         'default_visibility' => 1,
         'strings' => [
-            'author' => 'Author',
-            'contact' => 'Email',
-            'content' => 'Comment',
-            'submit' => 'Post',
-            'comments' => 'Comments',
-            'required' => 'All fields are required. Contact info will not be published.',
-            'signout' => 'Sign Out',
-            'signin' => 'Sign In',
-            'signedinas' => 'You are signed in as',
+            'author'      => 'Author',
+            'contact'     => 'Email',
+            'content'     => 'Comment',
+            'submit'      => 'Post',
+            'comments'    => 'Comments',
+            'required'    => 'All fields are required. Contact info will not be published.',
+            'signout'     => 'Sign Out',
+            'signin'      => 'Sign In',
+            'signedinas'  => 'You are signed in as',
             'notsignedin' => 'You are not signed in. To be able to comment, please ',
         ],
         'email' => [

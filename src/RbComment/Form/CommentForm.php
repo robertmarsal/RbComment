@@ -1,5 +1,4 @@
 <?php
-
 namespace RbComment\Form;
 
 use Zend\Form\Form;
@@ -44,7 +43,7 @@ class CommentForm extends Form
         $this->add([
             'name' => 'author',
             'attributes' => [
-                'type'  => 'text',
+                'type'        => 'text',
                 'placeholder' => $strings['author'],
             ],
         ]);
@@ -52,7 +51,7 @@ class CommentForm extends Form
         $this->add([
             'name' => 'contact',
             'attributes' => [
-                'type'  => 'text',
+                'type'        => 'text',
                 'placeholder' => $strings['contact'],
             ],
         ]);
@@ -70,7 +69,7 @@ class CommentForm extends Form
             'attributes' => [
                 'type'  => 'submit',
                 'value' => $strings['submit'],
-                'id' => 'submitbutton',
+                'id'    => 'submitbutton',
             ],
         ]);
     }

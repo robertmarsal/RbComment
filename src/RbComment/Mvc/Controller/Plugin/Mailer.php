@@ -16,8 +16,7 @@ class Mailer extends AbstractPlugin
         $serverUrlHelper,
         $mailerService,
         array $configService
-    )
-    {
+    ) {
         $this->serverUrlHelper = $serverUrlHelper;
         $this->mailerService   = $mailerService;
         $this->configService   = $configService;
