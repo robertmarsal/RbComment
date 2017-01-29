@@ -16,7 +16,7 @@ final class MailerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new Comment(
+        return new Mailer(
             $container->get('ViewHelperManager')->get('serverUrl'),
             $container->get('RbComment\Mailer'),
             $container->get('Config')
