@@ -28,9 +28,10 @@ class Mailer extends AbstractPlugin
 
         $htmlContent = $comment->content;
         $htmlContent .= '<br><br>';
-        $htmlContent .= '<a href="' . $this->serverUrlHelper() . $comment->uri . '#rbcomment-' . $comment->id . '">' .
-                        $mailerConfig['context_link_text'] .
-                        '</a>';
+        $htmlContent .=
+            '<a href="' . $this->serverUrlHelper->__invoke() . $comment->uri . '#rbcomment-' . $comment->id . '">' .
+                $mailerConfig['context_link_text'] .
+            '</a>';
 
         $html = new MimePart($htmlContent);
         $html->type = "text/html";
