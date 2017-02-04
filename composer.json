@@ -7,13 +7,13 @@
         "comments",
         "zf2"
     ],
-    "homepage": "http://github.com/robertboloc/RbComment",
+    "homepage": "https://github.com/robertboloc/RbComment",
     "license": "MIT",
     "authors": [
         {
             "name": "Robert Boloc",
             "email": "robertboloc@gmail.com",
-            "homepage": "http://robertboloc.eu",
+            "homepage": "https://robertboloc.eu",
             "role": "Developer"
         }
     ],
@@ -53,7 +53,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.5.x-dev"
+            "dev-master": "2.0.x-dev"
         }
     }
 }

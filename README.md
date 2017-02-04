@@ -24,7 +24,7 @@ email notifications, Akismet, ZfcUser and Gravatar integration.
 ```json
     {
         "require": {
-            "robertboloc/rbcomment": "1.4.0"
+            "robertboloc/rbcomment": "^2.0"
         }
     }
 ```
