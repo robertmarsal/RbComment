@@ -1,28 +1,43 @@
 <?php
-
 namespace RbComment\Controller;
 
 use RbComment\Model\Comment;
 use RbComment\Form\CommentForm;
+use RbComment\Model\CommentTable;
 use Zend\Http\PhpEnvironment\RemoteAddress;
 use Zend\Mvc\Controller\AbstractActionController;
+use ZendService\Akismet\Akismet;
 
 class CommentController extends AbstractActionController
 {
     /**
-     * @var \RbComment\Model\CommentTable
+     * @var CommentTable
      */
-    protected $commentTable;
+    private $commentTable;
 
     /**
-     * @var \ZendService\Akismet\Akismet
+     * @var Akismet
      */
-    protected $akismetService;
+    private $akismetService;
+
+    /**
+     * @var array
+     */
+    private $configService;
+
+    public function __construct(
+        array $configService,
+        CommentTable $commentTable,
+        Akismet $akismetService
+    ) {
+        $this->configService  = $configService;
+        $this->commentTable   = $commentTable;
+        $this->akismetService = $akismetService;
+    }
 
     public function addAction()
     {
-        $config = $this->getServiceLocator()->get('Config');
-        $rbCommentConfig = (object) $config['rb_comment'];
+        $rbCommentConfig = (object) $this->configService['rb_comment'];
 
         $form = new CommentForm($rbCommentConfig->strings);
 
@@ -46,7 +61,7 @@ class CommentController extends AbstractActionController
                 }
 
                 // We need the id for the mailer
-                $comment->id = $this->getCommentTable()->saveComment($comment);
+                $comment->id = $this->commentTable->saveComment($comment);
 
                 // Send email if active and not spam
                 if (($rbCommentConfig->email['notify'] === true) &&
@@ -67,8 +82,8 @@ class CommentController extends AbstractActionController
     /**
      * Checks if a comment is spam using the akismet service.
      *
-     * @param  \RbComment\Model\Comment $comment
-     * @param  mixed                    $rbCommentConfig
+     * @param  Comment $comment
+     * @param  mixed   $rbCommentConfig
      * @return boolean
      */
     protected function isSpam($comment, $rbCommentConfig)
@@ -78,39 +93,15 @@ class CommentController extends AbstractActionController
         $remote->setTrustedProxies($rbCommentConfig->akismet['proxy']['trusted']);
         $remote->setProxyHeader($rbCommentConfig->akismet['proxy']['header']);
 
-        return $this->getAkismetService()->isSpam(array(
-            'user_ip' => $remote->getIpAddress(),
-            'user_agent' => filter_input(INPUT_SERVER, 'HTTP_USER_AGENT'),
-            'comment_type' => 'comment',
-            'comment_author' => $comment->author,
+        $content = [
+            'user_ip'              => $remote->getIpAddress(),
+            'user_agent'           => filter_input(INPUT_SERVER, 'HTTP_USER_AGENT'),
+            'comment_type'         => 'comment',
+            'comment_author'       => $comment->author,
             'comment_author_email' => $comment->contact,
-            'comment_content' => $comment->content,
-        ));
-    }
+            'comment_content'      => $comment->content,
+        ];
 
-    /**
-     * @return \RbComment\Model\CommentTable
-     */
-    public function getCommentTable()
-    {
-        if (!$this->commentTable) {
-            $sm = $this->getServiceLocator();
-            $this->commentTable = $sm->get('RbComment\Model\CommentTable');
-        }
-
-        return $this->commentTable;
-    }
-
-    /**
-     * @return \ZendService\Akismet\Akismet
-     */
-    public function getAkismetService()
-    {
-        if (!$this->akismetService) {
-            $sm = $this->getServiceLocator();
-            $this->akismetService = $sm->get('RbComment\Akismet');
-        }
-
-        return $this->akismetService;
+        return $this->akismetService->isSpam($content);
     }
 }

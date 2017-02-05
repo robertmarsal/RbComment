@@ -1,46 +1,40 @@
 <?php
-
 namespace RbCommentTest\Controller;
 
-use RbComment\Model\CommentTable;
 use RbComment\Controller\CommentController;
-use ZendService\Akismet\Akismet;
+use RbComment\Model\CommentTable;
+use Zend\Http\Request;
+use Zend\Mvc\Controller\Plugin\Redirect;
+use Zend\Mvc\Plugin\FlashMessenger\FlashMessenger;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use PHPUnit_Framework_TestCase;
 use ReflectionClass;
+use ZendService\Akismet\Akismet;
 
 class CommentControllerTest extends PHPUnit_Framework_TestCase
 {
-    protected $configMock = array(
-        'rb_comment' => array(
-            'strings' => array(
+    protected $configMock = [
+        'rb_comment' => [
+            'strings' => [
                 'author'  => 'author',
                 'contact' => 'contact',
                 'content' => 'content',
                 'submit'  => 'submit',
-            ),
-        ),
-    );
+            ],
+        ],
+    ];
 
     protected $requestMock;
-
     protected $serviceLocatorMock;
+    protected $commentTableMock;
+    protected $akismetServiceMock;
 
     public function setUp()
     {
-        $this->serviceLocatorMock = $this->getMock(
-            'Zend\ServiceManager\ServiceLocatorInterface',
-            array('get', 'has'),
-            array(),
-            'ServiceLocatorInterface'
-        );
-
-        $this->requestMock = $this->getMock(
-            'Zend\Http\Request',
-            array('isPost', 'getPost'),
-            array(),
-            '',
-            false
-        );
+        $this->serviceLocatorMock = $this->createMock(ServiceLocatorInterface::class);
+        $this->requestMock        = $this->createMock(Request::class);
+        $this->commentTableMock   = $this->createMock(CommentTable::class);
+        $this->akismetServiceMock = $this->createMock(Akismet::class);
 
         // Global values
         $_SERVER['HTTP_USER_AGENT'] = 'RbComment Testing Suite';
@@ -48,33 +42,24 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
 
     public function testAddActionOnlyWorksWithPostMethod()
     {
-        // ServiceLocator Mock Setup
-        $this->serviceLocatorMock->expects($this->once())
-                                 ->method('get')
-                                 ->with('Config')
-                                 ->will($this->returnValue($this->configMock));
-
-        // Request Mock Setup
+        // Mocks
         $this->requestMock->expects($this->once())
-                    ->method('isPost')
-                    ->will($this->returnValue(false));
+                          ->method('isPost')
+                         ->will($this->returnValue(false));
 
-        // CommentController Mock
-        $commentControllerMock = $this->getMock(
-            'RbComment\Controller\CommentController',
-            array('getRequest', 'getServiceLocator'),
-            array(),
-            '',
-            false
-        );
-
-        $commentControllerMock->expects($this->once())
-                              ->method('getServiceLocator')
-                              ->will($this->returnValue($this->serviceLocatorMock));
+        $commentControllerMock =
+            $this->getMockBuilder(CommentController::class)
+                 ->setConstructorArgs([
+                     $this->configMock,
+                     $this->commentTableMock,
+                     $this->akismetServiceMock
+                 ])
+                 ->setMethods(['getRequest'])
+                 ->getMock();
 
         $commentControllerMock->expects($this->once())
                               ->method('getRequest')
-                              ->will($this->returnValue($this->requestMock));
+                              ->willReturn($this->requestMock);
 
         $commentControllerMock->addAction();
     }
@@ -82,65 +67,45 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
     public function testAddActionLogsFormErrorsIntoTheRbCommentNamespace()
     {
         //'contact' key is missing on purpose
-        $postMock = array(
-            'author' => 'Tester',
+        $postMock = [
+            'author'  => 'Tester',
             'content' => 'test',
-            'uri' => '/test',
-        );
-
-        // ServiceLocator Mock Setup
-        $this->serviceLocatorMock->expects($this->once())
-                                 ->method('get')
-                                 ->with('Config')
-                                 ->will($this->returnValue($this->configMock));
+            'uri'     => '/test',
+        ];
 
         // Request Mock Setup
         $this->requestMock->expects($this->once())
-                    ->method('isPost')
-                    ->will($this->returnValue(true));
+                          ->method('isPost')
+                          ->will($this->returnValue(true));
 
         $this->requestMock->expects($this->once())
-                    ->method('getPost')
-                    ->will($this->returnValue($postMock));
+                          ->method('getPost')
+                          ->will($this->returnValue($postMock));
 
         // FlashMessenger Mock
-        $flashMessengerMock = $this->getMock(
-            'Zend\Mvc\Controller\Plugin\FlashMessenger',
-            array('setNamespace', 'addMessage'),
-            array(),
-            '',
-            false
-        );
+        $flashMessengerMock = $this->createMock(FlashMessenger::class);
 
         $flashMessengerMock->expects($this->once())
                            ->method('setNamespace')
                            ->with('RbComment');
 
         // Redirect Mock
-        $redirectMock = $this->getMock(
-            'Zend\Mvc\Controller\Plugin\Redirect',
-            array('toUrl'),
-            array(),
-            '',
-            false
-        );
+        $redirectMock = $this->createMock(Redirect::class);
 
         $redirectMock->expects($this->once())
                      ->method('toUrl')
                      ->with($postMock['uri'] . '#rbcomment');
 
         // CommentController Mock
-        $commentControllerMock = $this->getMock(
-            'RbComment\Controller\CommentController',
-            array('getRequest', 'getServiceLocator', 'flashMessenger', 'redirect'),
-            array(),
-            '',
-            false
-        );
-
-        $commentControllerMock->expects($this->once())
-                              ->method('getServiceLocator')
-                              ->will($this->returnValue($this->serviceLocatorMock));
+        $commentControllerMock =
+            $this->getMockBuilder(CommentController::class)
+                 ->setConstructorArgs([
+                     $this->configMock,
+                     $this->commentTableMock,
+                     $this->akismetServiceMock
+                 ])
+                 ->setMethods(['getRequest',  'flashMessenger', 'redirect'])
+                 ->getMock();
 
         $commentControllerMock->expects($this->once())
                               ->method('getRequest')
@@ -162,107 +127,66 @@ class CommentControllerTest extends PHPUnit_Framework_TestCase
      */
     public function testIsSpam($comment, $isSpam)
     {
-        $rbCommentConfig = (object) array(
-            'akismet' => array(
-                'proxy' => array(
-                    'use' => false,
-                    'trusted' => array(),
-                    'header' => '',
-                ),
-            ),
-        );
+        $rbCommentConfig = (object) [
+            'akismet' => [
+                'proxy' => [
+                    'use'     => false,
+                    'trusted' => [],
+                    'header'  => '',
+                ],
+            ],
+        ];
 
-        $akismetServiceMock = $this->getMock(
-            'ZendService\Akismet\Akismet',
-            array('isSpam'),
-            array(),
-            '',
-            false
-        );
+        $akismetServiceMock =
+            $this->getMockBuilder(Akismet::class)
+                 ->disableOriginalConstructor()
+                 ->setMethods(['isSpam'])
+                 ->getMock();
 
         $akismetServiceMock->expects($this->once())
                            ->method('isSpam')
                            ->will($this->returnValue($isSpam));
-
-        $this->serviceLocatorMock->expects($this->once())
-                                 ->method('get')
-                                 ->with('RbComment\Akismet')
-                                 ->will($this->returnValue($akismetServiceMock));
 
         $commentControllerReflection = new ReflectionClass('RbComment\Controller\CommentController');
 
         $isSpamReflection = $commentControllerReflection->getMethod('isSpam');
         $isSpamReflection->setAccessible(true);
 
-        $commentController = new CommentController();
-        $commentController->setServiceLocator($this->serviceLocatorMock);
+        $commentController = new CommentController(
+            $this->configMock,
+            $this->commentTableMock,
+            $akismetServiceMock
+        );
 
         $this->assertEquals($isSpam, $isSpamReflection->invoke($commentController, $comment, $rbCommentConfig));
     }
 
+    /**
+     * @return array
+     */
     public static function isSpamDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 // comment
-                (object) array(
-                    'author' => 'not a spammer',
+                (object) [
+                    'author'  => 'not a spammer',
                     'contact' => 'me@me.com',
                     'content' => 'test',
-                ),
+                ],
                 // isSpam
                 false,
-            ),
-            array(
+            ],
+            [
                 // comment
-                (object) array(
-                    'author' => 'spammer',
+                (object) [
+                    'author'  => 'spammer',
                     'contact' => 'spam@spamfactory.com',
                     'content' => 'spam',
-                ),
+                ],
                 // isSpam
                 true,
-            ),
-        );
-    }
-
-    public function testGetCommentTableReturnsAnInstanceOfCommentTable()
-    {
-        $tableGatewayMock = $this->getMock(
-            'Zend\Db\TableGateway\TableGateway',
-            array(),
-            array(),
-            '',
-            false
-        );
-
-        $commentTable = new CommentTable($tableGatewayMock);
-
-        $this->serviceLocatorMock->expects($this->once())
-                                 ->method('get')
-                                 ->with('RbComment\Model\CommentTable')
-                                 ->will($this->returnValue($commentTable));
-
-        $commentController = new CommentController();
-        $commentController->setServiceLocator($this->serviceLocatorMock);
-
-        $this->assertEquals($commentTable, $commentController->getCommentTable());
-        $this->assertInstanceOf('RbComment\Model\CommentTable', $commentController->getCommentTable());
-    }
-
-    public function testGetAkismetServiceReturnsAnInstanceOfAkismet()
-    {
-        $akismetService = new Akismet('test', 'test');
-
-        $this->serviceLocatorMock->expects($this->once())
-                                 ->method('get')
-                                 ->with('RbComment\Akismet')
-                                 ->will($this->returnValue($akismetService));
-
-        $commentController = new CommentController();
-        $commentController->setServiceLocator($this->serviceLocatorMock);
-
-        $this->assertEquals($akismetService, $commentController->getAkismetService());
-        $this->assertInstanceOf('ZendService\Akismet\Akismet', $commentController->getAkismetService());
+            ],
+        ];
     }
 }

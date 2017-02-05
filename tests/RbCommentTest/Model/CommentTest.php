@@ -1,5 +1,4 @@
 <?php
-
 namespace RbCommentTest\Model;
 
 use RbComment\Model\Comment;
@@ -15,19 +14,22 @@ class CommentTest extends PHPUnit_Framework_TestCase
     {
         $this->testComment = new Comment();
 
-        $this->testArray = array(
-            'id' => 1,
-            'thread' => 12345,
-            'uri' => 'test-uri',
-            'author' => 'Robert Boloc',
-            'contact' => 'contact@robertboloc.eu',
-            'content' => 'This is a test comment',
-            'visible' => 1,
-            'spam' => 0,
+        $this->testArray = [
+            'id'           => 1,
+            'thread'       => 12345,
+            'uri'          => 'test-uri',
+            'author'       => 'Robert Boloc',
+            'contact'      => 'contact@robertboloc.eu',
+            'content'      => 'This is a test comment',
+            'visible'      => 1,
+            'spam'         => 0,
             'published_on' => 12345678,
-        );
+        ];
     }
 
+    /**
+     * @group model
+     */
     public function testCommentInitialState()
     {
         $this->assertNull($this->testComment->id);
@@ -41,6 +43,9 @@ class CommentTest extends PHPUnit_Framework_TestCase
         $this->assertNull($this->testComment->published_on);
     }
 
+    /**
+     * @group model
+     */
     public function testExchangeArrayExchangesTheValues()
     {
         $this->testComment->exchangeArray($this->testArray);
@@ -56,6 +61,9 @@ class CommentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->testArray['published_on'], $this->testComment->published_on);
     }
 
+    /**
+     * @group model
+     */
     public function testToArrayReturnsAllTheValues()
     {
         $this->testComment->exchangeArray($this->testArray);
@@ -74,6 +82,7 @@ class CommentTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @group model
      * @expectedException Exception
      * @expectedExceptionMessage Not used
      */
@@ -83,6 +92,7 @@ class CommentTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @group model
      * @dataProvider inputFilterDataProvider
      */
     public function testGetInputFilterValidation($data, $validity)
@@ -93,25 +103,28 @@ class CommentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($inputFilter->isValid(), $validity);
     }
 
+    /**
+     * @return array
+     */
     public static function inputFilterDataProvider()
     {
-        return array(
+        return [
             // False because no data is sent
-            array(
-                array(),
+            [
+                [],
                 false,
-            ),
+            ],
             // True because everything is ok
-            array(
-                array(
-                    'id' => 1,
-                    'thread' => md5('test'),
-                    'author' => 'Robert Boloc',
+            [
+                [
+                    'id'      => 1,
+                    'thread'  => md5('test'),
+                    'author'  => 'Robert Boloc',
                     'contact' => 'robert@test.com',
                     'content' => 'bla bla bla',
-                ),
+                ],
                 true,
-            ),
-        );
+            ],
+        ];
     }
 }

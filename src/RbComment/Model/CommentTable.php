@@ -1,5 +1,4 @@
 <?php
-
 namespace RbComment\Model;
 
 use Zend\Db\Sql\Select;
@@ -9,7 +8,7 @@ use Zend\Db\TableGateway\TableGateway;
 class CommentTable
 {
     /**
-     * @var Zend\Db\TableGateway\TableGateway
+     * @var TableGateway
      */
     protected $tableGateway;
 
@@ -25,24 +24,30 @@ class CommentTable
      */
     public function fetchAll()
     {
-        $resultSet = $this->tableGateway->select();
-
-        return $resultSet;
+        return $this->tableGateway->select();
     }
 
     /**
      * Returns all the comments of a thread.
      *
-     * @param  string    $thread
+     * @param  string $thread
+     *
      * @return ResultSet
      */
     public function fetchAllForThread($thread)
     {
+        $columns = [
+            'id',
+            'author',
+            'content',
+            'contact',
+            'published_on_raw' => 'published_on',
+            'published_on'     => new Expression("DATE_FORMAT(published_on, '%M %d, %Y %H:%i')"),
+        ];
+
         $select = new Select($this->tableGateway->getTable());
-        $select->columns(array('id', 'author', 'content', 'contact',
-                               'published_on_raw' => 'published_on',
-                               'published_on' => new Expression("DATE_FORMAT(published_on, '%M %d, %Y %H:%i')")))
-               ->where(array('thread' => $thread, 'visible' => 1))
+        $select->columns($columns)
+               ->where(['thread' => $thread, 'visible' => 1])
                ->order('published_on_raw ASC');
 
         $resultSet = $this->tableGateway->selectWith($select);
@@ -54,15 +59,23 @@ class CommentTable
      * Returns all the comments pending approval for a thread.
      *
      * @param string $thread
+     *
      * @return ResultSet
      */
     public function fetchAllPendingForThread($thread)
     {
+        $columns = [
+            'id',
+            'author',
+            'content',
+            'contact',
+            'published_on_raw' => 'published_on',
+            'published_on'     => new Expression("DATE_FORMAT(published_on, '%M %d, %Y %H:%i')"),
+        ];
+
         $select = new Select($this->tableGateway->getTable());
-        $select->columns(array('id', 'author', 'content', 'contact',
-                               'published_on_raw' => 'published_on',
-                               'published_on' => new Expression("DATE_FORMAT(published_on, '%M %d, %Y %H:%i')")))
-               ->where(array('thread' => $thread, 'visible' => 0))
+        $select->columns($columns)
+               ->where(['thread' => $thread, 'visible' => 0])
                ->order('published_on_raw ASC');
 
         $resultSet = $this->tableGateway->selectWith($select);
@@ -73,10 +86,11 @@ class CommentTable
     /**
      * Allow custom comments selection.
      *
-     * @param \Zend\Db\Sql\Select $select
+     * @param Select $select
+     *
      * @return ResultSet
      */
-    public function fetchAllUsingSelect(\Zend\Db\Sql\Select $select)
+    public function fetchAllUsingSelect(Select $select)
     {
         return $this->tableGateway->selectWith($select);
     }
@@ -84,14 +98,15 @@ class CommentTable
     /**
      * Returns a comment by id.
      *
-     * @param  int                      $id
-     * @return \RbComment\Model\Comment
+     * @param  int $id
+     *
+     * @return Comment
      */
     public function getComment($id)
     {
-        $id  = (int) $id;
-        $rowset = $this->tableGateway->select(array('id' => $id));
-        $row = $rowset->current();
+        $id     = (int)$id;
+        $rowset = $this->tableGateway->select(['id' => $id]);
+        $row    = $rowset->current();
 
         return $row;
     }
@@ -99,28 +114,29 @@ class CommentTable
     /**
      * Saves a comment into the database.
      *
-     * @param  \RbComment\Model\Comment $comment
-     * @return int                      The id of the inserted/updated comment
+     * @param  Comment $comment
+     *
+     * @return int The id of the inserted/updated comment
      */
     public function saveComment(Comment $comment)
     {
-        $data = array(
-            'thread' => $comment->thread,
-            'uri' => $comment->uri,
-            'author' => $comment->author,
+        $data = [
+            'thread'  => $comment->thread,
+            'uri'     => $comment->uri,
+            'author'  => $comment->author,
             'contact' => $comment->contact,
             'content' => $comment->content,
             'visible' => $comment->visible,
-            'spam' => $comment->spam,
-        );
+            'spam'    => $comment->spam,
+        ];
 
-        $id = (int) $comment->id;
+        $id = (int)$comment->id;
         if ($id === 0) {
             $this->tableGateway->insert($data);
             $id = $this->tableGateway->lastInsertValue;
         } else {
             if ($this->getComment($id)) {
-                $this->tableGateway->update($data, array('id' => $id));
+                $this->tableGateway->update($data, ['id' => $id]);
             }
         }
 
@@ -134,7 +150,7 @@ class CommentTable
      */
     public function deleteComment($id)
     {
-        $this->tableGateway->delete(array('id' => $id));
+        $this->tableGateway->delete(['id' => $id]);
     }
 
 
@@ -145,6 +161,6 @@ class CommentTable
      */
     public function deleteSpam()
     {
-        return $this->tableGateway->delete(array('spam' => 1));
+        return $this->tableGateway->delete(['spam' => 1]);
     }
 }
